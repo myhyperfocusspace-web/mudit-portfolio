@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mudit Chopra — AI Systems & Content Portfolio</title>
+<style>
+  :root{
+    --orange:#D4755A;
+    --purple:#8B5CF6;
+    --cream:#F5EDD8;
+    --black:#0D0D0D;
+    --ink:#1A1A1A;
+    --muted:#9A9488;
+    --line:rgba(245,237,216,0.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Inter','Segoe UI',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  /* deck */
+  .deck{height:100vh;width:100vw;position:relative}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    padding:6vh 8vw;
+    opacity:0;
+    transition:opacity .4s ease;
+    overflow:hidden;
+  }
+  .slide.active{display:flex;opacity:1;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ambient glows */
+  .glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.30;pointer-events:none;z-index:0}
+  .g-orange{background:var(--orange);width:520px;height:520px;top:-160px;right:-120px}
+  .g-purple{background:var(--purple);width:480px;height:480px;bottom:-200px;left:-140px}
+  .slide > *{position:relative;z-index:1}
+
+  /* typography */
+  .kicker{
+    font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--orange);font-weight:600;margin-bottom:1.4rem;
+  }
+  h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:1.02;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(1.9rem,3.6vw,3rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.4rem}
+  h3{font-size:1.15rem;font-weight:700}
+  p{color:#D9D2C2;font-size:1.05rem;line-height:1.6;font-weight:400}
+  .lead{font-size:clamp(1.05rem,1.6vw,1.35rem);color:#CFC8B8;max-width:46ch}
+  .accent{color:var(--orange)}
+  .accent2{color:var(--purple)}
+  .grad{background:linear-gradient(105deg,var(--orange),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* hero */
+  .hero-name{margin-bottom:1.4rem}
+  .hero-sub{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.8rem}
+  .pill{
+    border:1px solid var(--line);background:rgba(245,237,216,.04);
+    padding:.5rem 1rem;border-radius:999px;font-size:.82rem;color:var(--cream);font-weight:500;
+  }
+  .pill b{color:var(--orange)}
+
+  /* stat row */
+  .stats{display:flex;gap:3.2rem;flex-wrap:wrap;margin-top:2.6rem}
+  .stat .num{font-size:clamp(2rem,3.4vw,3rem);font-weight:800;line-height:1}
+  .stat .lbl{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:.4rem}
+
+  /* grid cards */
+  .grid{display:grid;gap:1.1rem;margin-top:1rem}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  .card{
+    border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(160deg,rgba(245,237,216,.05),rgba(245,237,216,.01));
+    padding:1.5rem 1.6rem;position:relative;overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;height:100%;width:3px;background:linear-gradient(var(--orange),var(--purple))}
+  .card .tag{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .card h3{margin:.5rem 0 .55rem}
+  .card p{font-size:.92rem;line-height:1.5}
+  .status{display:inline-block;font-size:.68rem;font-weight:700;padding:.22rem .6rem;border-radius:999px;margin-top:.9rem;letter-spacing:.05em}
+  .live{background:rgba(132,204,120,.14);color:#8ED07A;border:1px solid rgba(132,204,120,.3)}
+  .built{background:rgba(139,92,246,.14);color:#B79CFA;border:1px solid rgba(139,92,246,.32)}
+  .stack{font-size:.74rem;color:var(--muted);margin-top:.7rem;line-height:1.4}
+
+  /* tool grid */
+  .tools{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;margin-top:1.6rem}
+  .tool{border:1px solid var(--line);border-radius:10px;padding:.62rem .4rem;text-align:center;font-size:.78rem;font-weight:500;background:rgba(245,237,216,.03);color:#E7E0CF}
+  .tool.hl{border-color:rgba(212,117,90,.45);background:rgba(212,117,90,.08);color:var(--cream)}
+
+  /* capability columns */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.6rem}
+  .col h3{color:var(--orange);margin-bottom:.7rem;font-size:1.05rem}
+  .col ul{list-style:none}
+  .col li{font-size:.9rem;color:#D2CABA;padding:.32rem 0 .32rem 1.1rem;position:relative;line-height:1.4}
+  .col li::before{content:"›";position:absolute;left:0;color:var(--purple);font-weight:800}
+
+  /* timeline */
+  .tl{margin-top:1.4rem;border-left:2px solid var(--line);padding-left:1.6rem}
+  .tl-item{margin-bottom:1.3rem;position:relative}
+  .tl-item::before{content:"";position:absolute;left:-2.05rem;top:.35rem;width:11px;height:11px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(212,117,90,.18)}
+  .tl-item .when{font-size:.74rem;color:var(--purple);font-weight:700;letter-spacing:.08em}
+  .tl-item h3{font-size:1rem;margin:.2rem 0}
+  .tl-item p{font-size:.86rem}
+
+  /* contact */
+  .contact-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+  .cta{border:1px solid var(--line);border-radius:12px;padding:1rem 1.4rem;background:rgba(245,237,216,.03)}
+  .cta .lbl{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .cta .val{font-size:1.05rem;font-weight:600;margin-top:.3rem;color:var(--cream)}
+
+  /* footer chrome */
+  .chrome{position:fixed;bottom:2.2vh;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 8vw;z-index:20;font-size:.72rem;color:var(--muted);letter-spacing:.1em}
+  .brandmark{font-weight:700;color:var(--cream);letter-spacing:.02em}
+  .brandmark .dot{color:var(--orange)}
+  .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--purple));transition:width .4s ease;z-index:30}
+  .nav-hint{position:fixed;bottom:2.2vh;left:50%;transform:translateX(-50%);font-size:.68rem;color:var(--muted);letter-spacing:.18em;z-index:20}
+  .count{font-variant-numeric:tabular-nums}
+
+  /* nav arrows */
+  .arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:25;background:rgba(245,237,216,.05);border:1px solid var(--line);color:var(--cream);width:44px;height:44px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+  .arrow:hover{background:var(--orange);border-color:var(--orange);color:var(--black)}
+  .prev{left:2vw}.next{right:2vw}
+
+  @media (max-width:760px){
+    .grid.two,.grid.three,.cols{grid-template-columns:1fr}
+    .tools{grid-template-columns:repeat(3,1fr)}
+    .stats{gap:1.6rem}
+    .arrow{display:none}
+  }
+
+  /* ---- PRINT / PDF EXPORT ---- */
+  @page{size:1280px 720px;margin:0}
+  @media print{
+    html,body{height:auto;overflow:visible;background:var(--black)}
+    .deck{height:auto}
+    .slide{
+      position:relative;display:flex!important;opacity:1!important;
+      width:1280px;height:720px;
+      page-break-after:always;break-after:page;
+      animation:none;
+    }
+    .slide:last-of-type{page-break-after:auto}
+    .arrow,.chrome,.nav-hint,.progress{display:none!important}
+    *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 — HERO -->
+  <section class="slide active">
+    <div class="glow g-orange"></div><div class="glow g-purple"></div>
+    <div class="kicker">AI Systems · Content · Engine Optimization</div>
+    <h1 class="hero-name">Mudit <span class="grad">Chopra</span></h1>
+    <p class="lead">I don't do the work anymore — my systems do. I design end-to-end AI agents that handle research, strategy and content production from start to finish.</p>
+    <div class="hero-sub">
+      <span class="pill"><b>4+</b> production AI agents shipped</span>
+      <span class="pill"><b>50+</b> AI tools in 2 years</span>
+      <span class="pill"><b>AIEO · GEO</b> specialist</span>
+    </div>
+  </section>
+
+  <!-- 2 — ABOUT -->
+  <section class="slide">
+    <div class="glow g-purple"></div>
+    <div class="kicker">Who I Am</div>
+    <h2>Builder of <span class="accent">autonomous AI systems</span>, not one-off prompts.</h2>
+    <p class="lead" style="margin-top:1rem">Over the last two years I've gone from using AI tools to architecting full agentic pipelines — MCP servers, multi-tool reasoning loops and content engines deployed live on production infrastructure.</p>
+    <div class="stats">
+      <div class="stat"><div class="num grad">50+</div><div class="lbl">AI tools mastered</div></div>
+      <div class="stat"><div class="num grad">4</div><div class="lbl">Agents shipped to production</div></div>
+      <div class="stat"><div class="num grad">2</div><div class="lbl">Live MCP servers on VPS</div></div>
+      <div class="stat"><div class="num grad">6</div><div class="lbl">Role AI content team</div></div>
+    </div>
+  </section>
+
+  <!-- 3 — EXPERTISE: AIEO / GEO -->
+  <section class="slide">
+    <div class="glow g-orange"></div>
+    <div class="kicker">Core Expertise</div>
+    <h2>AIEO &amp; GEO — getting brands <span class="accent">cited by AI</span>.</h2>
+    <p class="lead" style="margin-top:.8rem">The search layer is shifting from blue links to AI answers. I optimize content so it gets surfaced and cited inside ChatGPT, Perplexity, Gemini and Google AI Overviews — not just ranked on page one.</p>
+    <div class="cols">
+      <div class="col">
+        <h3>AIEO</h3>
+        <ul>
+          <li>AI Engine Optimization</li>
+          <li>Structuring content for LLM retrieval</li>
+          <li>Entity &amp; citation positioning</li>
+          <li>Answer-ready formatting</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>GEO</h3>
+        <ul>
+          <li>Generative Engine Optimization</li>
+          <li>Optimizing for Perplexity / AI Overviews</li>
+          <li>Source authority signals</li>
+          <li>Prompt-intent mapping</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>AI Content</h3>
+        <ul>
+          <li>Agentic content pipelines</li>
+          <li>Reference-driven script systems</li>
+          <li>Multi-platform repurposing</li>
+          <li>Brand-voice locked generation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — PROJECTS GRID -->
+  <section class="slide">
+    <div class="glow g-purple"></div>
+    <div class="kicker">Selected Work · AI Agents</div>
+    <h2 style="margin-bottom:1.2rem">Production systems I designed &amp; shipped.</h2>
+    <div class="grid two">
+      <div class="card">
+        <div class="tag">Content Strategy · MCP Agent</div>
+        <h3>Baby Island — AI Content Strategist</h3>
+        <p>End-to-end strategist for a kidswear brand: scrapes reference videos, reverse-engineers winning formats with vision AI, builds weekly calendars &amp; briefs, ships to Notion.</p>
+        <span class="status live">● Live · 14-tool MCP server</span>
+        <div class="stack">Claude · Gemini Vision · Apify · Perplexity · Notion API · FastMCP</div>
+      </div>
+      <div class="card">
+        <div class="tag">Personal Brand · MCP Agent</div>
+        <h3>mudit.sleeps — Brand Agent</h3>
+        <p>A second deployed instance adapted for a creator brand, backed by a 6-role AI content team (researcher, strategist, ghostwriter, repurposer, designer, editor).</p>
+        <span class="status live">● Live · 25-handle registry</span>
+        <div class="stack">Claude · Remotion · Reddit API · WebSearch · Notion · FastMCP</div>
+      </div>
+      <div class="card">
+        <div class="tag">Ad Intelligence · Pipeline</div>
+        <h3>Ad Strategy Agent</h3>
+        <p>Mined Meta Ad Library for winning competitor creatives — winner-scoring gate, ElevenLabs transcription (84 transcripts), Gemini vision breakdowns, LLM angle ranking, script generation.</p>
+        <span class="status built">◆ Built · full pipeline</span>
+        <div class="stack">Apify · ElevenLabs Scribe · Gemini · Claude · FastMCP</div>
+      </div>
+      <div class="card">
+        <div class="tag">Creative Intelligence · First-Party</div>
+        <h3>Meta Ads Agent</h3>
+        <p>First-party data engine for high-spend brands: ranks own organic + paid creative, builds a versioned scoring rubric, backtests winner/loser separation, predicts creative performance.</p>
+        <span class="status built">◆ Built · V2 + backtest verified</span>
+        <div class="stack">Meta Marketing API · Gemini Vision · Hyros · Claude</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — DEEP DIVE: THE AI CONTENT TEAM -->
+  <section class="slide">
+    <div class="glow g-orange"></div>
+    <div class="kicker">System Design · Spotlight</div>
+    <h2>A <span class="accent2">6-role AI content team</span> that runs from one input.</h2>
+    <p class="lead" style="margin-top:.8rem">One YouTube video → a full week of multi-platform content. Each role is a skill-defined agent with its own tools and outputs, chained into a single pipeline.</p>
+    <div class="grid three" style="margin-top:1.4rem">
+      <div class="card"><div class="tag">01</div><h3>Researcher</h3><p>Reddit + web signal mining with engagement thresholds &amp; pain-point extraction.</p></div>
+      <div class="card"><div class="tag">02</div><h3>Strategist</h3><p>Turns signal into a content plan — pillars, angles, platform priorities.</p></div>
+      <div class="card"><div class="tag">03</div><h3>Ghostwriter</h3><p>Brand-voice-locked copy for LinkedIn, X and short-form scripts.</p></div>
+      <div class="card"><div class="tag">04</div><h3>Repurposer</h3><p>Fans one long-form asset into reels, shorts, threads &amp; posts.</p></div>
+      <div class="card"><div class="tag">05</div><h3>Designer</h3><p>Generates design briefs &amp; visual direction per asset.</p></div>
+      <div class="card"><div class="tag">06</div><h3>Editor</h3><p>Remotion video pipeline — programmatic rendering to final MP4.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 — TOOLS -->
+  <section class="slide">
+    <div class="glow g-purple"></div>
+    <div class="kicker">Stack · 50+ Tools in 2 Years</div>
+    <h2>The toolkit behind the systems.</h2>
+    <div class="tools">
+      <div class="tool hl">Claude</div><div class="tool hl">GPT-4</div><div class="tool hl">Gemini</div>
+      <div class="tool hl">Perplexity</div><div class="tool">Llama</div><div class="tool">Mistral</div>
+      <div class="tool hl">FastMCP</div><div class="tool hl">n8n</div><div class="tool hl">Apify</div>
+      <div class="tool hl">ElevenLabs</div><div class="tool">OpenRouter</div><div class="tool">Remotion</div>
+      <div class="tool">ChromaDB</div><div class="tool">Notion API</div><div class="tool">Hyros</div>
+      <div class="tool">Meta API</div><div class="tool">pytrends</div><div class="tool">Scribe</div>
+      <div class="tool">Cursor</div><div class="tool">Midjourney</div><div class="tool">Runway</div>
+      <div class="tool">ComfyUI</div><div class="tool">HeyGen</div><div class="tool">Descript</div>
+      <div class="tool">Zapier</div><div class="tool">Make</div><div class="tool">LangChain</div>
+      <div class="tool">Pinecone</div><div class="tool">Whisper</div><div class="tool">+20 more</div>
+    </div>
+    <p style="margin-top:1.6rem;color:var(--muted);font-size:.9rem">Highlighted = daily-driver tools wired directly into shipped production agents.</p>
+  </section>
+
+  <!-- 7 — JOURNEY -->
+  <section class="slide">
+    <div class="glow g-orange"></div>
+    <div class="kicker">Trajectory</div>
+    <h2>From tools → systems → deployed agents.</h2>
+    <div class="tl">
+      <div class="tl-item"><div class="when">PHASE 01</div><h3>Power user → 50+ AI tools</h3><p>Two years going deep across LLMs, automation, vision, audio and video AI.</p></div>
+      <div class="tl-item"><div class="when">PHASE 02</div><h3>First agentic content engine — Baby Island</h3><p>Watch → learn → replicate pipeline; deployed live as a 14-tool MCP server on VPS.</p></div>
+      <div class="tl-item"><div class="when">PHASE 03</div><h3>Replicated &amp; specialized</h3><p>Second live agent (mudit.sleeps) + ad-intelligence pipelines proving the architecture generalizes.</p></div>
+      <div class="tl-item"><div class="when">PHASE 04</div><h3>First-party data &amp; prediction</h3><p>Meta Ads Agent — rubric building, backtesting, creative scoring on real performance data.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 — CONTACT -->
+  <section class="slide">
+    <div class="glow g-orange"></div><div class="glow g-purple"></div>
+    <div class="kicker">Let's Build</div>
+    <h1 style="font-size:clamp(2.2rem,5vw,4.2rem)">Need an AI system that<br><span class="grad">removes the work entirely?</span></h1>
+    <p class="lead" style="margin-top:1.2rem">I design, build and deploy custom AI agents for content, ad intelligence and AIEO/GEO. Let's talk about what you want to automate.</p>
+    <div class="contact-row">
+      <div class="cta"><div class="lbl">Brand</div><div class="val">@mudit.sleeps</div></div>
+      <div class="cta"><div class="lbl">Focus</div><div class="val">AI Agents · AIEO/GEO · Content</div></div>
+      <div class="cta"><div class="lbl">Email</div><div class="val">muditchopra200@gmail.com</div></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- chrome -->
+<button class="arrow prev" onclick="go(-1)">‹</button>
+<button class="arrow next" onclick="go(1)">›</button>
+<div class="chrome">
+  <span class="brandmark">mudit<span class="dot">.</span>chopra</span>
+  <span class="count"><span id="cur">1</span> / <span id="total">8</span></span>
+</div>
+<div class="nav-hint">← → or SPACE to navigate · F for fullscreen</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  document.getElementById('total').textContent=slides.length;
+  function render(){
+    slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+    document.getElementById('cur').textContent=i+1;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+  }
+  function go(d){i=Math.max(0,Math.min(slides.length-1,i+d));render()}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}
+    if(e.key==='ArrowLeft')go(-1);
+    if(e.key==='Home'){i=0;render()}
+    if(e.key==='End'){i=slides.length-1;render()}
+    if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}
+  });
+  // swipe
+  let x0=null;
+  document.addEventListener('touchstart',e=>x0=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(dx<0?1:-1);x0=null});
+  render();
+</script>
+</body>
+</html>
