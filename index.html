@@ -296,68 +296,575 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #ff
 @media(max-width:950px){#human-work .human-work-grid{grid-template-columns:1fr 1fr}#human-work .human-work-tile:last-child{grid-column:span 2;min-height:200px!important}#homePage .nav-links{gap:14px}}
 @media(max-width:700px){#films .carousel-header{display:flex!important}#films .carousel-header h2{font-size:clamp(43px,10vw,64px)!important}#films .carousel-controls button{width:40px;height:40px}#human-work .human-intro,#systems .systems-intro,#leadership .leadership-heading{display:block!important}#human-work .human-intro>p,#systems .systems-intro>p,#leadership .leadership-heading>p{margin-top:16px!important;justify-self:start}#human-work .human-work-grid{grid-template-columns:1fr}#human-work .human-work-tile:last-child{grid-column:auto}#human-work .human-work-tile{min-height:240px!important}#contact .footer{grid-template-columns:1fr!important}#contact .footerlinks{justify-content:flex-start}#contact .foot-end{margin-top:45px}#homePage .nav-links{gap:10px}}
 @media(prefers-reduced-motion:reduce){#creative .social-card,#creative .profile-screenshot img{transition:none}}
-</style></head>
+/* ===== Tidewell-style hero: pixel icons assemble into the headline ===== */
+.hero-js .hero-about-copy h1{position:relative;height:1.8em}
+.hero-js .hero-about-copy h1 .mast-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero-about-copy h1 .mast-stage{position:absolute;left:0;top:0;right:0;bottom:0;color:inherit}
+.hero-about-copy h1 .ml{position:absolute;left:0;top:0;display:inline-block;line-height:.9;white-space:pre;color:#fff;clip-path:inset(-.12em 100% -.12em -.12em);transition:clip-path .2s linear}
+.hero-about-copy h1 .ml.on{clip-path:inset(-.12em -.12em -.12em -.12em)}
+.hero-about-copy h1 .ml.l2{color:#bfc1ca}
+.mi{position:absolute;left:0;top:0;transition:transform .55s cubic-bezier(.25,.75,.2,1),width .55s cubic-bezier(.25,.75,.2,1),height .55s cubic-bezier(.25,.75,.2,1);will-change:transform}
+.mi-in{width:100%;height:100%;opacity:0;transform:scale(.3)}
+.mi-in.on{opacity:1;transform:none;transition:transform .32s cubic-bezier(.34,1.56,.64,1),opacity .12s}
+.mi-in.gone{animation:mi-squash .3s ease-in forwards}
+@keyframes mi-squash{0%{transform:none;opacity:1;filter:brightness(1)}45%{transform:rotate(-28deg) scale(1.25,.16);opacity:1;filter:brightness(2)}100%{transform:rotate(-90deg) scale(1.25,.16);opacity:0;filter:brightness(2)}}
+.mfly{position:fixed;left:0;top:0;pointer-events:none;z-index:200;opacity:0;will-change:transform}
+.mfly svg,.mi svg{display:block}
+.hero-js .nav-signature,.hero-js .nav-links a,.hero-js .hero-kicker,.hero-js .hero-role,.hero-js .hero-biography,.hero-js .hero-actions,.hero-js .hero-portrait,.hero-js .hero-coordinate{opacity:0}
+.hero-js .hero-biography,.hero-js .hero-actions,.hero-js .hero-role{transform:translateY(10px)}
+.hero-js .nav-signature.in,.hero-js .nav-links a.in,.hero-js .hero-kicker.in,.hero-js .hero-role.in,.hero-js .hero-biography.in,.hero-js .hero-actions.in,.hero-js .hero-portrait.in,.hero-js .hero-coordinate.in{opacity:1;transform:none;transition:opacity .6s ease-out,transform .6s ease-out}
+@media(prefers-reduced-motion:reduce){.hero-js .nav-signature,.hero-js .nav-links a,.hero-js .hero-kicker,.hero-js .hero-role,.hero-js .hero-biography,.hero-js .hero-actions,.hero-js .hero-portrait,.hero-js .hero-coordinate{opacity:1;transform:none}}
+/* ===== hero video fan (replaces portrait) ===== */
+.hero-fanwrap{grid-column:1/-1;align-self:auto;min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:14px;margin-top:clamp(28px,4vw,60px)}
+.hero-about-grid{grid-template-columns:minmax(0,1fr)!important;row-gap:0!important}
+.hero-fanlabel{font:10px var(--mono);letter-spacing:.09em;color:#9b9da6;text-align:center}
+.hero-fan{position:relative;overflow:visible;height:var(--sh,300px);margin:0}
+@media(max-width:680px){.hero-fan{overflow:hidden}}
+.hwrap{position:absolute;left:0;top:0;width:var(--cw,140px);height:calc(var(--cw,140px)*1.32);margin:calc(var(--cw,140px)*-.66) 0 0 calc(var(--cw,140px)*-.5);opacity:0;will-change:transform}
+.hwrap:hover{z-index:5}
+.hcard .hc-open{position:absolute;left:9%;bottom:6%;z-index:2;font:500 calc(var(--cw,140px)*.05)/1 var(--mono);font-style:normal;letter-spacing:.1em;color:#fff;border:1px solid rgba(255,255,255,.65);background:rgba(0,0,0,.4);padding:.7em 1em;border-radius:99px}
+.hcard:hover .hc-open{background:#fff;color:#000}
+#homePage .hero-stage{overflow:visible!important}
+.hcard{position:absolute;inset:0;display:block;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.3);border-radius:calc(var(--cw,140px)*.045);box-shadow:0 calc(var(--cw,140px)*.14) calc(var(--cw,140px)*.28) rgba(0,0,0,.75),0 0 calc(var(--cw,140px)*.4) rgba(255,255,255,.05);text-decoration:none;color:#fff;animation:hfloat 6.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+.hcard:hover{animation-play-state:paused}
+@keyframes hfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media(prefers-reduced-motion:reduce){.hcard{animation:none}}
+.hcard:hover,.hcard:focus-visible{border-color:#fff;z-index:5}
+.hcard img,.hcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.hcard video{opacity:0;transition:opacity .3s}
+.hcard video.on{opacity:1}
+.hcard::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.65),transparent 45%);pointer-events:none}
+.hcard span{position:absolute;left:9%;right:9%;top:6%;z-index:2;font:600 calc(var(--cw,140px)*.095)/1.15 var(--sans);letter-spacing:-.02em;color:#fff}
+.hcard span b{display:block;font:500 calc(var(--cw,140px)*.055)/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#bfc1ca;margin-bottom:.4em}
+.hero-js .hero-fanlabel{opacity:0}
+.hero-js .hero-fanlabel.in{opacity:1;transition:opacity .6s ease-out}
+@media(prefers-reduced-motion:reduce){.hero-js .hero-fanlabel{opacity:1}}
+@media(max-width:1000px){.hero-content .hero-portrait{display:none}}
+@media(min-width:1001px){
+#homePage .hero-about-grid{grid-template-columns:minmax(0,1fr)!important}
+#homePage .hero-about-copy{grid-column:1;grid-row:1}
+#homePage .hero-portrait{grid-column:2;grid-row:1;justify-self:end;align-self:start;margin-top:clamp(26px,4.4vh,46px);width:clamp(190px,16vw,320px);min-height:0!important;display:block}
+#homePage .portrait-image{height:auto!important;min-height:0!important;aspect-ratio:4/5;max-height:calc(100svh - 430px);min-height:150px!important}
+#homePage .hero-fanwrap{grid-column:1/-1;grid-row:2}
+}
+@media(min-width:681px){
+#homePage .hero-stage{padding-top:clamp(24px,4vh,44px)!important;padding-bottom:clamp(14px,2vh,26px)!important;min-height:calc(100svh - 88px)!important}
+#homePage .hero-about-copy h1{font-size:clamp(50px,min(8.1vw,11.5vh),128px)!important;margin:14px 0 clamp(14px,2.2vh,22px)!important}
+#homePage .hero-about-copy .hero-role{margin:0 0 clamp(8px,1.4vh,14px)!important}
+#homePage .hero-biography{font-size:clamp(14px,calc(.9vw + .8vh),19px)!important;line-height:1.55!important;max-width:660px!important;margin:0 0 clamp(18px,3vh,30px)!important}
+#homePage .hero-actions{margin-top:0!important}
+#homePage .hero-actions a{min-height:40px}
+#homePage .hero-fanwrap{margin-top:clamp(24px,4.2vh,46px);gap:clamp(14px,2.4vh,24px)}
+#homePage .hero-coordinate{margin-top:clamp(16px,2.6vh,30px)}
+}
+/* ===== compact, minimal lower sections ===== */
+#homePage .section{padding-top:clamp(26px,3.2vw,46px)!important;padding-bottom:clamp(26px,3.2vw,46px)!important}
+#homePage .sectop{margin-bottom:8px!important;padding-bottom:10px!important}
+#homePage .display,#homePage .carousel-header h2,#homePage .leadership-heading h2,#homePage .film-addition h2{font-size:clamp(26px,3.1vw,42px)!important;line-height:1.05!important;margin:4px 0 6px!important;letter-spacing:-.055em!important}
+#homePage .featured-heading,#homePage .compact-head,#homePage .human-intro,#homePage .systems-intro,#homePage .carousel-header{margin:0 0 16px!important;gap:20px!important;min-height:0!important;align-items:end!important}
+#homePage .featured-heading p,#homePage .compact-head p,#homePage .human-intro p,#homePage .systems-intro p,#homePage .leadership-heading p,#homePage .carousel-header p{font-size:12.5px!important;line-height:1.5!important;max-width:340px!important;margin:0!important}
+#homePage .eyebrow{font-size:9px!important}
+#homePage #brands>.display{margin-bottom:10px!important}
+
+/* featured films: two compact side-by-side cards, video + copy */
+#homePage .spec-grid.spec-showcase{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
+#homePage .spec-card.spec-feature{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:18px!important;align-items:center}
+#homePage .spec-cinema{height:clamp(280px,44vh,380px)!important;aspect-ratio:9/16;width:auto!important;padding:0!important;min-height:0!important;box-shadow:0 20px 50px #0008!important}
+#homePage .spec-cinema .featured-video{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important}
+#homePage .spec-topline{padding:8px 10px!important;font-size:8px!important}
+#homePage .spec-topline span:last-child{display:none}
+#homePage .spec-copy{display:block!important;padding:0!important}
+#homePage .spec-copy h3{font-size:clamp(20px,2.1vw,28px)!important;line-height:1.1!important;margin:8px 0!important}
+#homePage .spec-copy p{font-size:12.5px!important;line-height:1.5!important;margin:0 0 14px!important}
+#homePage .spec-copy>a{display:inline-flex!important;min-height:36px!important;padding:0 14px!important;font-size:9px!important;gap:12px}
+@media(min-width:801px){#homePage .spec-grid.spec-showcase{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:800px){#homePage .spec-card.spec-feature{grid-template-columns:auto minmax(0,1fr);gap:14px!important}#homePage .spec-cinema{height:clamp(220px,34vh,300px)!important}}
+@media(max-width:520px){#homePage .spec-card.spec-feature{grid-template-columns:1fr}#homePage .spec-cinema{height:clamp(260px,46vh,360px)!important;justify-self:center}}
+
+/* films rail */
+#homePage .rail{padding:2px 0 8px!important;gap:14px!important}
+#homePage .rail-card h3{font-size:17px!important;margin:8px 0 3px!important}
+
+/* brand content tiles */
+#homePage .human-work-grid{gap:12px!important}
+#homePage .human-work-tile{min-height:0!important;padding:16px 18px!important;gap:8px!important;justify-content:flex-start!important}
+#homePage .human-work-tile h3{font-size:19px!important;line-height:1.15!important;margin:2px 0!important}
+#homePage .human-work-tile p{font-size:12px!important;line-height:1.45!important;margin:0!important}
+
+/* brand wall: two tidy rows */
+#homePage .brand-wall{padding-top:10px!important}
+#homePage .brands-grid{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:8px!important}
+#homePage .brand{min-height:0!important;padding:12px 8px 8px!important;gap:6px!important}
+#homePage .brand img{max-height:32px!important;max-width:84%!important}
+#homePage .brand span,#homePage .brand small{font-size:7.5px!important}
+#homePage .brand.brand-count-tile{grid-column:auto!important;padding:8px!important}
+#homePage .brand-count-inner{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+#homePage .brand-count-tile strong{font-size:30px!important;letter-spacing:-.06em!important;line-height:1}
+#homePage .brand-count-tile span{font-size:7px!important;letter-spacing:.1em;line-height:1.3}
+@media(max-width:900px){#homePage .brands-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media(max-width:520px){#homePage .brands-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+
+/* content leadership (social cards) */
+#homePage .social-grid{gap:12px!important}
+#homePage .social-card{padding:10px!important;gap:6px!important;min-height:0!important}
+#homePage .social-preview{aspect-ratio:16/8!important;height:auto!important}
+#homePage .social-preview img{object-fit:cover!important;object-position:50% 0!important;width:100%!important;height:100%!important}
+#homePage .social-card strong{font-size:14px!important}
+#homePage .social-description{font-size:11.5px!important;line-height:1.4!important}
+
+/* process accordion */
+#homePage .process-accordion summary{padding:12px 12px!important}
+#homePage .process-accordion summary strong{font-size:clamp(18px,1.8vw,24px)!important}
+#homePage .process-detail{padding-bottom:16px!important;gap:24px!important}
+#homePage .process-detail p{font-size:12.5px!important;line-height:1.5!important}
+
+/* agents: horizontal compact cards */
+#homePage .agent-grid{gap:14px!important}
+#homePage .agent-card{padding:10px!important}
+#homePage .agent-workstation{padding:10px!important;gap:6px!important}
+#homePage .agent-info{padding:12px 6px 4px!important}
+#homePage .agent-info h3{font-size:19px!important}
+#homePage .agent-info p{font-size:12px!important;line-height:1.45!important}
+@media(min-width:801px){
+ #homePage .agent-card{flex-direction:row!important;gap:14px;align-items:stretch}
+ #homePage .agent-workstation{flex:0 0 52%!important;min-width:0}
+ #homePage .agent-info{flex:1!important;min-width:0;justify-content:center}
+}
+
+/* leadership */
+#homePage .leadership-heading{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:end;margin-bottom:16px!important;gap:4px 24px!important}
+#homePage .leadership-heading .eyebrow{grid-column:1/-1}
+@media(max-width:800px){#homePage .leadership-heading{grid-template-columns:minmax(0,1fr)!important}#homePage .leadership-heading h2{font-size:clamp(26px,8vw,36px)!important}}
+#homePage .leadership-heading h2{margin:0!important}
+#homePage .leadership-grid{gap:12px!important}
+#homePage .leadership-card{min-height:0!important;height:auto!important}
+#homePage .lead-art{height:204px!important;min-height:204px!important}
+#homePage .lead-art>*{zoom:.76}
+@media(min-width:801px){#homePage .leadership-card{display:grid!important;grid-template-columns:42% minmax(0,1fr)!important}#homePage .lead-caption{display:flex;flex-direction:column;justify-content:center}}
+#homePage .lead-caption{padding:14px 16px!important}
+#homePage .lead-caption h3{font-size:clamp(16px,1.5vw,20px)!important;line-height:1.15!important;margin:6px 0!important}
+#homePage .lead-caption p{font-size:12px!important;line-height:1.45!important;margin:0!important}
+
+/* contact footer */
+#homePage .footer h2{font-size:clamp(30px,4vw,56px)!important}
+#homePage .footer{padding-top:18px!important}
+#homePage .foot-end{padding-top:14px!important}
+
+/* hero portrait: 16:9, smaller */
+@media(min-width:1001px){
+ #homePage .hero-portrait{width:clamp(220px,19vw,330px)!important}
+ #homePage .portrait-image{aspect-ratio:16/9!important;height:auto!important;width:100%!important;max-height:none!important;min-height:0!important}
+ #homePage .portrait-real{object-position:50% 22%!important;-webkit-mask-image:none!important;mask-image:none!important;filter:grayscale(1) contrast(1.08) brightness(.95)!important}
+ #homePage .portrait-image{-webkit-mask-image:none!important;mask-image:none!important}
+ #homePage .portrait-image-caption{display:none!important}
+}
+/* ===== simple agents + simpler hero cards ===== */
+#homePage .agent-grid.agent-simple{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+#homePage .agent-card.agent-lite{display:flex!important;flex-direction:column!important;align-items:flex-start;gap:10px!important;padding:22px 20px!important;min-height:0!important;border:1px solid rgba(255,255,255,.14)!important;background:#0b0d12!important}
+#homePage .agent-lite .agent-no{font:10px var(--mono);letter-spacing:.12em;color:#7d8088}
+#homePage .agent-lite h3{font-size:clamp(19px,1.7vw,24px)!important;line-height:1.1!important;margin:0!important;color:#fff;letter-spacing:-.03em}
+#homePage .agent-lite p{font-size:13px!important;line-height:1.5!important;color:#b7b9c1!important;margin:0!important}
+#homePage .agent-lite small{margin-top:auto;padding-top:6px;font:9px var(--mono);letter-spacing:.1em;color:#7d8088;text-transform:uppercase}
+@media(max-width:1000px){#homePage .agent-grid.agent-simple{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){#homePage .agent-grid.agent-simple{grid-template-columns:1fr!important}}
+#homePage .hwrap{height:calc(var(--cw,140px)*1.25)!important;margin:calc(var(--cw,140px)*-.625) 0 0 calc(var(--cw,140px)*-.5)!important}
+#homePage .hcard{border:1px solid rgba(255,255,255,.14)!important;border-radius:calc(var(--cw,140px)*.07)!important;box-shadow:0 calc(var(--cw,140px)*.1) calc(var(--cw,140px)*.26) rgba(0,0,0,.6)!important}
+#homePage .hcard::after{background:linear-gradient(rgba(0,0,0,.7),transparent 42%)!important}
+#homePage .hcard .hc-title{position:absolute;left:8%;right:8%;top:6%!important;bottom:auto!important;z-index:2;font:600 calc(var(--cw,140px)*.08)/1.2 var(--sans)!important;letter-spacing:-.01em!important;color:#fff}
+#homePage .hcard .hc-open{left:auto!important;right:6%;bottom:5%!important;top:auto!important;padding:.55em .85em!important;font-size:calc(var(--cw,140px)*.045)!important}
+/* ===== The brand work: iPhone with videos playing one by one ===== */
+#homePage .bw-stage .bw-phone{z-index:2}
+#homePage .bw-stage{display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:8px}
+.bw-phone{--pw:clamp(210px,17vw,250px);position:relative;width:var(--pw);aspect-ratio:9/19;padding:calc(var(--pw)*.034);border-radius:calc(var(--pw)*.17);background:linear-gradient(145deg,#2c2e35,#0a0b0e 42%,#1b1d23);box-shadow:0 0 0 1px rgba(255,255,255,.2),0 calc(var(--pw)*.14) calc(var(--pw)*.34) rgba(0,0,0,.75),0 0 calc(var(--pw)*.5) rgba(255,255,255,.04);cursor:pointer}
+.bw-screen{position:relative;width:100%;height:100%;border-radius:calc(var(--pw)*.138);overflow:hidden;background:#000}
+.bw-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
+.bw-screen video.on{opacity:1}
+.bw-island{position:absolute;top:calc(var(--pw)*.062);left:50%;width:calc(var(--pw)*.3);height:calc(var(--pw)*.085);transform:translateX(-50%);border-radius:99px;background:#000;z-index:3;pointer-events:none}
+.bw-home{position:absolute;bottom:calc(var(--pw)*.062);left:50%;width:calc(var(--pw)*.34);height:calc(var(--pw)*.014);transform:translateX(-50%);border-radius:99px;background:rgba(255,255,255,.75);z-index:3;pointer-events:none}
+.bw-btn{position:absolute;width:calc(var(--pw)*.014);background:#2b2d34;border-radius:2px;pointer-events:none}
+.bw-btn.b1{left:calc(var(--pw)*-.012);top:17%;height:4.5%}
+.bw-btn.b2{left:calc(var(--pw)*-.012);top:24%;height:8%}
+.bw-btn.b3{left:calc(var(--pw)*-.012);top:34%;height:8%}
+.bw-btn.b4{right:calc(var(--pw)*-.012);top:27%;height:12%}
+.bw-meta{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.bw-now{display:flex;flex-direction:column;gap:5px;align-items:center}
+.bw-idx{font:10px var(--mono);letter-spacing:.14em;color:#8a8d96}
+.bw-title{font-size:clamp(17px,1.5vw,21px);font-weight:600;letter-spacing:-.02em;color:#fff}
+.bw-sub{font:9px var(--mono);letter-spacing:.1em;color:#8a8d96;text-transform:uppercase}
+.bw-dots{display:flex;gap:8px}
+.bw-dot{position:relative;width:34px;height:3px;padding:0;border:0;border-radius:3px;background:rgba(255,255,255,.2);overflow:hidden;cursor:pointer}
+.bw-dot i{position:absolute;left:0;top:0;bottom:0;width:0;background:#fff}
+.bw-sound{font:9px var(--mono);letter-spacing:.12em;color:#c9cbd2;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:7px 14px;cursor:pointer}
+.bw-sound:hover{background:#fff;color:#000}
+/* ===== leadership: simple cards ===== */
+#homePage .leadership-grid.lead-simple{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+#homePage .lead-lite{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:22px 20px;border:1px solid rgba(255,255,255,.14);background:#0b0d12;min-width:0}
+#homePage .lead-lite .lead-no{font:10px var(--mono);letter-spacing:.12em;color:#7d8088}
+#homePage .lead-lite h3{font-size:clamp(18px,1.6vw,23px);line-height:1.15;margin:0;color:#fff;letter-spacing:-.03em;font-weight:600}
+#homePage .lead-lite p{font-size:13px;line-height:1.5;color:#b7b9c1;margin:0}
+@media(max-width:1000px){#homePage .leadership-grid.lead-simple{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){#homePage .leadership-grid.lead-simple{grid-template-columns:1fr!important}}
+
+#filmsPage .films-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:clamp(18px,2.2vw,30px);padding:clamp(26px,4vw,48px) 0}
+.film-card{display:flex;flex-direction:column;gap:14px}
+.film-frame{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#0b0c10;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s}
+.film-frame:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.34)}
+.film-frame img,.film-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.film-frame video{background:#000}
+.film-play{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(10,10,14,.5);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center;transition:transform .25s,background .25s}
+.film-frame:hover .film-play{transform:scale(1.08);background:rgba(10,10,14,.7)}
+.film-play i{width:0;height:0;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.film-frame.playing .film-play{display:none}
+.film-no{font:10px var(--mono);letter-spacing:.09em;color:#9b9da6}
+.film-info h3{margin:6px 0 4px;font-size:clamp(17px,1.5vw,21px);font-weight:600;color:#f3f3f3;line-height:1.2}
+.film-info p{margin:0;font-size:13px;color:#b5b7c1}
+.film-info a{display:inline-block;margin-top:9px;font:11px var(--mono);letter-spacing:.07em;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
+.top-back .films-back{font:11px var(--mono);letter-spacing:.07em;color:#bfc0c8;text-decoration:none}
+.bw-all{display:inline-block;margin-top:14px;font:11px var(--mono);letter-spacing:.09em;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px}
+#homePage .hero-role,#homePage .hero-role span,#homePage .hero-biography{color:#c9cbd3!important}
+.bw-rail{display:none}
+@media(max-width:760px){
+#homePage .bw-stage{position:relative}
+.bw-rail{display:flex;position:absolute;right:10px;left:auto;z-index:6;flex-direction:column;justify-content:center;gap:10px}
+.bw-rail button{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.35);background:rgba(10,10,14,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#e6e7ec;font:600 13px var(--mono);cursor:pointer;display:grid;place-items:center;padding:0;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.bw-rail button.on{background:#fff;color:#0b0c10;border-color:#fff;transform:scale(1.08)}
+}
+#homePage .bw-stage{padding-bottom:clamp(60px,9vh,90px)}
+</style><script>if(!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.classList.add("hero-js")</script></head>
 <body>
 <div class="cosmos" aria-hidden="true"><div class="cosmos-stars cosmos-far"></div><div class="cosmos-stars cosmos-middle"></div><div class="cosmos-stars cosmos-near"></div><div class="cosmos-vignette"></div></div>
 <main class="sheet">
 <section class="home-shell active" id="homePage">
-<header id="homeTop" class="hyper-nav"><a class="nav-signature" href="#/" aria-label="Mudit Chopra home"><span class="signature-mark">M<span class="signature-dot">.</span></span><span class="signature-name">MUDIT CHOPRA<small>AI CREATIVE PRODUCER</small></span></a><nav aria-label="Main" class="nav-links"><a href="#featured">FEATURED</a><a href="#films">AI FILMS</a><a href="#brands">BRANDS</a><a href="#systems">SYSTEMS</a><a href="#leadership">ABOUT</a><a href="#contact" class="nav-cta">LET'S TALK ↗</a></nav></header>
-<div class="portfolio-position hero-stage hero-about"><div class="hero-content hero-about-grid"><div class="hero-about-copy"><span class="hero-kicker"><span class="live-pulse"></span> AI CREATIVE PRODUCER / BENGALURU</span><h1>MUDIT<br><span>CHOPRA.</span></h1><p class="hero-role">AI CREATIVE PRODUCER <span> | </span> AI TEAM LEAD</p><p class="hero-biography">I turn creative ideas into AI-powered films, build systems that scale content, and lead teams bringing new creative possibilities to brands.</p><div class="hero-actions"><a href="#featured">WATCH MY WORK <span>↗</span></a><a href="#contact">LET'S CONNECT <span>↗</span></a></div></div><div class="hero-portrait"><div class="portrait-aura"></div><div class="portrait-image"><img class="portrait-real" src="https://d2ol7oe51mr4n9.cloudfront.net/user_2wo87L6aM4WjXBf39mjP4UqEnpF/bb3ef5df-86b7-46a4-b39b-2f2bfa96a6c7.png" alt="Portrait of Mudit Chopra" loading="eager" fetchpriority="high"><span class="portrait-image-caption">MUDIT CHOPRA / CREATIVE EXPLORER</span></div></div></div><div class="hero-coordinate"><span>PORTFOLIO / 2026</span><span>SCROLL TO EXPLORE ↓</span></div></div>
-<section class="section" id="featured"><div class="sectop"><span>01 / FEATURED AI FILMS</span><span>INDEPENDENT SPEC CAMPAIGNS</span></div><div class="featured-heading"><div><span class="eyebrow">THE WORK / START HERE</span><h2 class="display">Stories worth <span>watching.</span></h2></div><p>Two original AI spec films, from concept and storytelling to visual production.</p></div><div class="spec-grid spec-showcase">
-<article class="spec-card spec-feature"><div class="spec-cinema"><div class="spec-topline"><span>01 / FIRSTCLUB</span><span>INDEPENDENT SPEC AD</span></div><video class="featured-video" controls playsinline preload="metadata" poster="assets/video/firstclub-poster.jpg" aria-label="Watch The FirstClub Flex AI spec film"><source src="assets/video/firstclub.mp4" type="video/mp4"></video></div><div class="spec-copy"><div><span class="edition">CONCEPT / STORYBOARD / AI FILM / FINAL EDIT</span><h3>The FirstClub Flex</h3><p>An office comedy where grocery shopping becomes the ultimate status symbol.</p></div><a href="#/work/firstclub">EXPLORE THE CASE STUDY <span>↗</span></a></div></article>
-<article class="spec-card spec-feature"><div class="spec-cinema"><div class="spec-topline"><span>02 / SLEEPY OWL</span><span>INDEPENDENT SPEC AD</span></div><video class="featured-video" controls playsinline preload="metadata" poster="assets/video/sleepy-owl-poster.jpg" aria-label="Watch Sleepy Owl AI spec film"><source src="assets/video/sleepy-owl.mp4" type="video/mp4"></video></div><div class="spec-copy"><div><span class="edition">CONCEPT / STORYBOARD / AI FILM / FINAL EDIT</span><h3>Coffee That Saves Your Day</h3><p>A workplace comedy built around a simple truth: sometimes coffee saves the day.</p></div><a href="#/work/sleepy-owl">EXPLORE THE CASE STUDY <span>↗</span></a></div></article>
-</div></section><div class="rule"></div>
-<section class="section" id="films"><div class="sectop"><span>02 / BRAND AI WORK</span><span>SELECTED AGENCY PROJECTS</span></div><div class="carousel-header"><h2>Brand <em>AI Work</em></h2><div class="carousel-controls"><button id="prevFilm" aria-label="Previous commissioned film">←</button><button id="nextFilm" aria-label="Next commissioned film">→</button></div></div>
-<div class="rail" id="filmRail" tabindex="0" aria-label="Horizontally scrollable commissioned video collection">
- <article class="rail-card"><video class="rail-frame" controls playsinline preload="metadata" poster="assets/video/amazon-smart-commerce-poster.jpg" aria-label="Amazon Smart Commerce AI talking head film"><source src="assets/video/amazon-smart-commerce.mp4" type="video/mp4">Your browser does not support the video tag.</video><h3>Amazon Smart Commerce</h3><div class="edition">AI VIDEO · AGENCY PROJECT</div></article>
- <article class="rail-card"><video class="rail-frame" controls playsinline preload="metadata" poster="assets/video/itc-aashirvaad-poster.jpg" aria-label="ITC Aashirvaad AI product film"><source src="assets/video/itc-aashirvaad.mp4" type="video/mp4">Your browser does not support the video tag.</video><h3>ITC Aashirvaad</h3><div class="edition">AI PRODUCT FILM · AGENCY PROJECT</div></article>
- <article class="rail-card"><video class="rail-frame" controls playsinline preload="metadata" poster="assets/video/notyetbyus-poster.jpg" aria-label="Notyetbyus AI storytelling ad"><source src="assets/video/notyetbyus.mp4" type="video/mp4">Your browser does not support the video tag.</video><h3>Notyetbyus</h3><div class="edition">AI AD FILM · AGENCY PROJECT</div></article>
- 
- 
-</div>
-</section><div class="film-addition"><span class="eyebrow">MORE PROJECTS TO COME</span><p>Additional AI brand films will be added as approved video assets become available.</p></div>
-<div class="rule"></div>
-<section class="section" id="human-work"><div class="sectop"><span>03 / BRAND CONTENT WORK</span><span>HUMAN-LED CREATIVE / CAMPAIGNS</span></div><div class="human-intro"><h2 class="display">Brand content <span>& campaigns.</span></h2><p>Creative strategy, campaign thinking, scripts and social-first ideas beyond AI production.</p></div><div class="human-work-grid"><div class="human-work-tile"><span>01 / CAMPAIGN IDEAS</span><h3>Concepts that connect.</h3><p>Audience insight, campaign territories, creative hooks and scripts.</p></div><div class="human-work-tile"><span>02 / SOCIAL-FIRST CONTENT</span><h3>Made for the feed.</h3><p>Reels, content calendars, storytelling and brand communication.</p></div><div class="human-work-tile"><span>03 / CREATIVE DIRECTION</span><h3>From idea to execution.</h3><p>Visual direction, production planning and cross-functional delivery.</p></div></div></section><div class="rule"></div>
-<section class="section" id="brands"><div class="sectop"><span>04 / BRAND EXPERIENCE</span><span>SELECTED EXPERIENCE</span></div><h2 class="display">Brands I’ve <em>Worked With</em></h2>
+<header id="homeTop" class="hyper-nav"><a class="nav-signature" href="#/" aria-label="Mudit Chopra home"><span class="signature-name">MUDIT CHOPRA</span></a><nav aria-label="Main" class="nav-links"><a href="#/films">ALL FILMS</a><a href="#brand-work">BRAND WORK</a><a href="#brands">BRANDS</a><a href="#systems">SYSTEMS</a><a href="#contact" class="nav-cta">LET'S TALK ↗</a></nav></header>
+<div class="portfolio-position hero-stage hero-about"><div class="hero-content hero-about-grid"><div class="hero-about-copy"><span class="hero-kicker"><span class="live-pulse"></span> AI CREATIVE PRODUCER / BENGALURU</span><h1 aria-label="Mudit’s Portfolio"><span class="mast-sr">Mudit’s<br><span>Portfolio</span></span><span class="mast-stage" aria-hidden="true"></span></h1><p class="hero-role">AI CREATIVE PRODUCER <span> | </span> AI TEAM LEAD</p><p class="hero-biography">I turn creative ideas into AI-powered films, build systems that scale content, and lead teams bringing new creative possibilities to brands.</p><div class="hero-actions"><a href="#brand-work">WATCH MY WORK <span>↗</span></a><a href="#contact">LET'S CONNECT <span>↗</span></a></div></div><div class="hero-fanwrap"><span class="hero-fanlabel">(SELECTED FILMS / HOVER TO PLAY / CLICK OPEN TO LEARN ABOUT THE PROJECT)</span><div class="hero-fan" id="heroFan" role="group" aria-label="Selected films"></div></div></div><div class="hero-coordinate"><span>PORTFOLIO / 2026</span><span>SCROLL TO EXPLORE ↓</span></div></div>
+
+
+<section class="section" id="brand-work"><div class="sectop"><span>01 / THE BRAND WORK</span><span>AI FILMS / AGENCY + SPEC</span></div><div class="compact-head"><h2 class="display">The brand <em>work.</em></h2><p>Five films, playing one after another.</p></div><div class="bw-stage"><div class="bw-phone"><div class="bw-screen"><video muted playsinline preload="metadata" poster="assets/video/notyetbyus-poster.jpg" data-title="Notyetbyus" data-sub="AI ad film · agency project" aria-label="Notyetbyus"><source src="assets/video/notyetbyus.mp4" type="video/mp4"></video><video muted playsinline preload="none" poster="assets/video/itc-aashirvaad-poster.jpg" data-title="ITC Aashirvaad" data-sub="AI product film · agency project" aria-label="ITC Aashirvaad"><source src="assets/video/itc-aashirvaad.mp4" type="video/mp4"></video><video muted playsinline preload="none" poster="assets/video/amazon-smart-commerce-poster.jpg" data-title="Amazon Smart Commerce" data-sub="AI video · agency project" aria-label="Amazon Smart Commerce"><source src="assets/video/amazon-smart-commerce.mp4" type="video/mp4"></video><video muted playsinline preload="none" poster="assets/video/firstclub-poster.jpg" data-title="The FirstClub Flex" data-sub="Independent spec ad" aria-label="The FirstClub Flex"><source src="assets/video/firstclub.mp4" type="video/mp4"></video><video muted playsinline preload="none" poster="assets/video/sleepy-owl-poster.jpg" data-title="Coffee That Saves Your Day" data-sub="Independent spec ad" aria-label="Coffee That Saves Your Day"><source src="assets/video/sleepy-owl.mp4" type="video/mp4"></video></div><i class="bw-island"></i><i class="bw-home"></i><i class="bw-btn b1"></i><i class="bw-btn b2"></i><i class="bw-btn b3"></i><i class="bw-btn b4"></i></div><div class="bw-meta"><div class="bw-now"><span class="bw-idx">01 / 05</span><strong class="bw-title"></strong><small class="bw-sub"></small></div><div class="bw-dots"><button class="bw-dot" aria-label="Play Notyetbyus"><i></i></button><button class="bw-dot" aria-label="Play ITC Aashirvaad"><i></i></button><button class="bw-dot" aria-label="Play Amazon Smart Commerce"><i></i></button><button class="bw-dot" aria-label="Play The FirstClub Flex"><i></i></button><button class="bw-dot" aria-label="Play Coffee That Saves Your Day"><i></i></button></div><button class="bw-sound" type="button">SOUND OFF</button><a class="bw-all" href="#/films">VIEW ALL FILMS ↗</a></div></div></section><div class="rule"></div>
+<section class="section" id="human-work"><div class="sectop"><span>02 / BRAND CONTENT WORK</span><span>HUMAN-LED CREATIVE / CAMPAIGNS</span></div><div class="human-intro"><h2 class="display">Brand content <span>& campaigns.</span></h2><p>Creative strategy, campaign thinking, scripts and social-first ideas beyond AI production.</p></div><div class="human-work-grid"><div class="human-work-tile"><span>01 / CAMPAIGN IDEAS</span><h3>Concepts that connect.</h3><p>Audience insight, campaign territories, creative hooks and scripts.</p></div><div class="human-work-tile"><span>02 / SOCIAL-FIRST CONTENT</span><h3>Made for the feed.</h3><p>Reels, content calendars, storytelling and brand communication.</p></div><div class="human-work-tile"><span>03 / CREATIVE DIRECTION</span><h3>From idea to execution.</h3><p>Visual direction, production planning and cross-functional delivery.</p></div></div></section><div class="rule"></div>
+<section class="section" id="brands"><div class="sectop"><span>03 / BRAND EXPERIENCE</span><span>SELECTED EXPERIENCE</span></div><h2 class="display">Brands I’ve <em>Worked With</em></h2>
  <div class="brand-wall"><div class="brand-wall-heading"><span>SELECTED COLLABORATIONS</span><span>13 FEATURED / 40+ OVERALL</span></div><div class="brands-grid"><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/itc.png" alt="ITC" loading="lazy"></div><span class="brand-label">01 / ITC</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/aashirvaad.png" alt="Aashirvaad" loading="lazy"></div><span class="brand-label">02 / Aashirvaad</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/amazon-smart-commerce.png" alt="Amazon Smart Commerce" loading="lazy"></div><span class="brand-label">03 / Amazon Smart Commerce</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/swiggy.png" alt="Swiggy" loading="lazy"></div><span class="brand-label">04 / Swiggy</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/schneider-electric.png" alt="Schneider Electric" loading="lazy"></div><span class="brand-label">05 / Schneider Electric</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/meghana-foods.png" alt="Meghana Foods" loading="lazy"></div><span class="brand-label">06 / Meghana Foods</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/corner-house.png" alt="Corner House" loading="lazy"></div><span class="brand-label">07 / Corner House</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/loyal-world-market.png" alt="Loyal World Market" loading="lazy"></div><span class="brand-label">08 / Loyal World Market</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/dave-and-busters.jpg" alt="Dave &amp; Buster's" loading="lazy"></div><span class="brand-label">09 / Dave &amp; Buster's</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/better-chicken.png" alt="Better Chicken" loading="lazy"></div><span class="brand-label">10 / Better Chicken</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/athletiq.jpg" alt="Athletiq" loading="lazy"></div><span class="brand-label">11 / Athletiq</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/beirgarten.jpg" alt="Beirgarten" loading="lazy"></div><span class="brand-label">12 / Beirgarten</span></div><div class="brand"><div class="brand-logo-surface"><img src="assets/logos/amazon.png" alt="Amazon" loading="lazy"></div><span class="brand-label">13 / Amazon</span></div><div class="brand brand-count-tile"><div class="brand-count-inner"><strong>40+</strong><span>BRANDS ACROSS MY EXPERIENCE</span></div></div></div></div>
 </section>
 <div class="rule"></div>
-<section class="section" id="creative"><div class="sectop"><span>05 / CONTENT LEADERSHIP</span><span>BRAND CONTENT / STRATEGY</span></div><div class="compact-head"><h2 class="display">Content <em>Leadership</em></h2><p>AI strategy leadership across brand campaigns and video production.</p></div><div class="social-grid social-accounts">
+<section class="section" id="creative"><div class="sectop"><span>04 / CONTENT LEADERSHIP</span><span>BRAND CONTENT / STRATEGY</span></div><div class="compact-head"><h2 class="display">Content <em>Leadership</em></h2><p>AI strategy leadership across brand campaigns and video production.</p></div><div class="social-grid social-accounts">
 <a class="social-card" href="https://www.instagram.com/pickyourtrail?psln=a2pzdnNraHRvcGhk" target="_blank" rel="noopener noreferrer" aria-label="Open PickYourTrail Instagram profile"><span class="social-preview profile-screenshot"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_2wo87L6aM4WjXBf39mjP4UqEnpF/69a9a79e-50ad-408a-8c0d-1386705cd5a4.jpg" alt="Screenshot of PickYourTrail Instagram profile" loading="lazy"></span><strong>PickYourTrail</strong><span class="social-description">Led AI strategy and creative planning for the Diwali campaign.</span><span class="social-visit">View Instagram ↗</span></a>
 <a class="social-card" href="https://www.instagram.com/smartcommercebyamazon?exln=MWpwbzNtYW9pNjMyOQ==" target="_blank" rel="noopener noreferrer" aria-label="Open Amazon Smart Commerce Instagram profile"><span class="social-preview profile-screenshot"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_2wo87L6aM4WjXBf39mjP4UqEnpF/9762d4f7-7f67-4485-8c1a-2cb516ae72ca.jpg" alt="Screenshot of Amazon Smart Commerce Instagram profile" loading="lazy"></span><strong>Amazon Smart Commerce</strong><span class="social-description">Leading ongoing AI video strategy and creative production.</span><span class="social-visit">View Instagram ↗</span></a>
 <a class="social-card" href="https://www.instagram.com/aashirvaad_merichakki?psln=MWJvZGw5MThseWd2Zg==" target="_blank" rel="noopener noreferrer" aria-label="Open ITC Aashirvaad Meri Chakki Instagram profile"><span class="social-preview profile-screenshot"><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_2wo87L6aM4WjXBf39mjP4UqEnpF/5672c41c-d59e-49d4-951b-9de08234d520.jpg" alt="Screenshot of Aashirvaad Meri Chakki Instagram profile" loading="lazy"></span><strong>ITC Aashirvaad Meri Chakki</strong><span class="social-description">Led AI video strategy and creative production.</span><span class="social-visit">View Instagram ↗</span></a></div></section><div class="rule"></div>
-<section class="section" id="ownership"><div class="sectop"><span>06 / HOW I WORK</span><span>EXPLORE EACH STAGE</span></div><div class="compact-head"><h2 class="display">From brief <em>to film.</em></h2><p>Click a stage to explore how I move from a problem to a finished creative.</p></div><div class="process-accordion">
-<details open><summary><span>01 / DISCOVER</span><strong>Brief</strong><small>THE PROBLEM ↗</small></summary><div class="process-detail"><p>I unpack the objective, audience, brand, key message and what success should look like. I research the category and identify the creative opportunity.</p><div class="process-output"><b>INPUT</b><span>Brand brief / audience / references</span><b>OUTPUT</b><span>Creative direction / insight / key message</span></div></div></details>
-<details><summary><span>02 / DEVELOP</span><strong>Concept</strong><small>THE IDEA ↗</small></summary><div class="process-detail"><p>I develop the hook, narrative, script and shot-by-shot storyboard. I build visual references and test frames before moving into production.</p><div class="process-output"><b>INPUT</b><span>Creative direction</span><b>OUTPUT</b><span>Script / storyboard / reference frames</span></div></div></details>
-<details><summary><span>03 / CREATE</span><strong>Production</strong><small>THE FRAMES ↗</small></summary><div class="process-detail"><p>I create and refine consistent AI frames, develop motion and transitions, generate scenes, and iterate for realism, pacing and visual continuity.</p><div class="process-output"><b>INPUT</b><span>Storyboard / key frames</span><b>OUTPUT</b><span>AI scenes / selects / rough cut</span></div></div></details>
-<details><summary><span>04 / FINISH</span><strong>Delivery</strong><small>THE FINAL FILM ↗</small></summary><div class="process-detail"><p>I bring together the edit, sound, grade and platform-specific versions, then review the work against the original brief before final handoff.</p><div class="process-output"><b>INPUT</b><span>Generated scenes / edit</span><b>OUTPUT</b><span>Finished film / social cutdowns / final assets</span></div></div></details>
-</div><div class="process-case-link"><span>SEE THE PROCESS APPLIED TO A REAL FILM</span><a href="#/work/firstclub">FIRSTCLUB CASE STUDY ↗</a></div></section><div class="rule"></div>
-<section class="section" id="systems"><div class="sectop"><span>07 / AI WORKFLOWS</span><span>BUILDING SYSTEMS THAT DO THE WORK</span></div><div class="systems-intro"><div><span class="eyebrow">AUTOMATION / AGENTIC WORKFLOWS</span><h2 class="display">Meet the <span>agents.</span></h2></div><p>Four purpose-built workflows. From research and brand intelligence to production-ready content.</p></div><div class="agent-grid">
-<article class="agent-card"><div class="agent-workstation workstation-ads"><div class="workstation-top"><span class="ws-light"></span><span>AD INTELLIGENCE</span><span>SYS / 01</span></div><div class="workstation-display"><div class="ws-terminal"><div class="ws-terminal-head"><span>WORKFLOW PREVIEW</span><span>● ● ●</span></div><div class="ws-input">AD INTELLIGENCE</div><div class="ws-steps"><div class="ws-step"><span>01</span><b>CREATIVE SCAN</b><i></i></div><div class="ws-step"><span>02</span><b>HOOK PATTERNS</b><i></i></div><div class="ws-step"><span>03</span><b>OPPORTUNITY MAP</b><i></i></div></div><div class="ws-output"><span class="ws-pulse"></span>OUTPUT READY</div></div><div class="ws-sidecar"><div class="ws-orb"></div><span>AI / ACTIVE</span></div></div><div class="workstation-bottom"><span>INPUT → PROCESS → OUTPUT</span><span>ILLUSTRATIVE</span></div></div><div class="agent-info"><span class="agent-index">AGENT 01 / RESEARCH</span><h3>Ads Intel <span>↗</span></h3><p>Competitor ads in. Creative signals and hooks out.</p><div class="agent-flow"><span>AD LIBRARY</span><b>→</b><span>CREATIVE INSIGHTS</span></div><small>DEMO PENDING</small></div></article>
-<article class="agent-card"><div class="agent-workstation workstation-blog"><div class="workstation-top"><span class="ws-light"></span><span>SEO WRITER</span><span>SYS / 02</span></div><div class="workstation-display"><div class="ws-terminal"><div class="ws-terminal-head"><span>WORKFLOW PREVIEW</span><span>● ● ●</span></div><div class="ws-input">SEO WRITER</div><div class="ws-steps"><div class="ws-step"><span>01</span><b>KEYWORD CLUSTERS</b><i></i></div><div class="ws-step"><span>02</span><b>ARTICLE OUTLINE</b><i></i></div><div class="ws-step"><span>03</span><b>DRAFT BUILD</b><i></i></div></div><div class="ws-output"><span class="ws-pulse"></span>OUTPUT READY</div></div><div class="ws-sidecar"><div class="ws-orb"></div><span>AI / ACTIVE</span></div></div><div class="workstation-bottom"><span>INPUT → PROCESS → OUTPUT</span><span>ILLUSTRATIVE</span></div></div><div class="agent-info"><span class="agent-index">AGENT 02 / CONTENT</span><h3>Blog Agent <span>↗</span></h3><p>Topic briefs into structured, SEO-ready drafts.</p><div class="agent-flow"><span>TOPIC BRIEF</span><b>→</b><span>SEO DRAFT</span></div><small>DEMO PENDING</small></div></article>
-<article class="agent-card"><div class="agent-workstation workstation-brand"><div class="workstation-top"><span class="ws-light"></span><span>BRAND MEMORY</span><span>SYS / 03</span></div><div class="workstation-display"><div class="ws-terminal"><div class="ws-terminal-head"><span>WORKFLOW PREVIEW</span><span>● ● ●</span></div><div class="ws-input">BRAND MEMORY</div><div class="ws-steps"><div class="ws-step"><span>01</span><b>TONE ANALYSIS</b><i></i></div><div class="ws-step"><span>02</span><b>VOICE RULES</b><i></i></div><div class="ws-step"><span>03</span><b>COPY VALIDATION</b><i></i></div></div><div class="ws-output"><span class="ws-pulse"></span>OUTPUT READY</div></div><div class="ws-sidecar"><div class="ws-orb"></div><span>AI / ACTIVE</span></div></div><div class="workstation-bottom"><span>INPUT → PROCESS → OUTPUT</span><span>ILLUSTRATIVE</span></div></div><div class="agent-info"><span class="agent-index">AGENT 03 / STRATEGY</span><h3>Brand Agent <span>↗</span></h3><p>Guidelines and context into on-brand creative.</p><div class="agent-flow"><span>BRAND DNA</span><b>→</b><span>ALIGNED CONTENT</span></div><small>IN DEVELOPMENT</small></div></article>
-<article class="agent-card"><div class="agent-workstation workstation-content"><div class="workstation-top"><span class="ws-light"></span><span>ASSET PIPELINE</span><span>SYS / 04</span></div><div class="workstation-display"><div class="ws-terminal"><div class="ws-terminal-head"><span>WORKFLOW PREVIEW</span><span>● ● ●</span></div><div class="ws-input">ASSET PIPELINE</div><div class="ws-steps"><div class="ws-step"><span>01</span><b>EXTRACT CONTENT</b><i></i></div><div class="ws-step"><span>02</span><b>REFORMAT</b><i></i></div><div class="ws-step"><span>03</span><b>OUTPUT QUEUE</b><i></i></div></div><div class="ws-output"><span class="ws-pulse"></span>OUTPUT READY</div></div><div class="ws-sidecar"><div class="ws-orb"></div><span>AI / ACTIVE</span></div></div><div class="workstation-bottom"><span>INPUT → PROCESS → OUTPUT</span><span>ILLUSTRATIVE</span></div></div><div class="agent-info"><span class="agent-index">AGENT 04 / PRODUCTION</span><h3>Content Automation <span>↗</span></h3><p>Source assets transformed into repeatable deliverables.</p><div class="agent-flow"><span>SOURCE ASSETS</span><b>→</b><span>OUTPUT QUEUE</span></div><small>DEMO PENDING</small></div></article></div><p class="workflow-disclaimer">ILLUSTRATIVE AGENT VISUALIZATIONS · WORKFLOW STATUS SHOWN ON EACH CARD</p></section><div class="rule"></div>
-<section class="section" id="leadership"><div class="sectop"><span>08 / AI LEADERSHIP</span><span>PEOPLE / CAPABILITY / GROWTH</span></div><div class="leadership-heading"><span class="eyebrow">BEYOND THE OUTPUT</span><h2 class="display">Leadership <span>& initiatives.</span></h2><p>Building AI capability inside creative teams and bringing it to brands.</p></div><div class="leadership-grid">
-<article class="leadership-card lead-team"><div class="lead-art team-art"><div class="team-count">04<span>PEOPLE</span></div><div class="team-avatars"><span>●</span><span>●</span><span>●</span><span>●</span></div><div class="team-gridlines"></div></div><div class="lead-caption"><span>01 / TEAM</span><h3>Led four at Think Tree Media.</h3><p>Directed AI creative production and helped build new ways of working.</p></div></article>
-<article class="leadership-card lead-pioneer"><div class="lead-art initiative-art"><span class="initiative-label">CREATIVE OPERATING SYSTEM</span><div class="initiative-flow"><span>BRIEF</span><i>↓</i><span>AI SYSTEMS</span><i>↓</i><span>CREATIVE</span></div><span class="initiative-foot">SYSTEMS / ADOPTION / PRODUCTION</span></div><div class="lead-caption"><span>02 / INNOVATION</span><h3>Pioneered AI systems & creativity.</h3><p>Introduced AI-powered creative workflows and production systems within the agency.</p></div></article>
-<article class="leadership-card lead-brands"><div class="lead-art brands-art"><span class="brand-work-label">SELECTED BRAND INITIATIVES</span><div class="brand-work-names"><span>AMAZON SMART COMMERCE</span><span>ITC AASHIRVAAD</span><span>PICKYOURTRAIL</span></div><span class="brand-work-footer">AI CREATIVE / STRATEGY / CONTENT</span></div><div class="lead-caption"><span>03 / BRAND ADOPTION</span><h3>Brought AI to leading brands.</h3><p>Led AI creative initiatives across Amazon Smart Commerce, ITC Aashirvaad and other agency brand projects.</p></div></article>
-<article class="leadership-card lead-growth"><div class="lead-art growth-art"><span class="growth-title">NEW SERVICE LINES</span><div class="growth-services"><strong>AI ADS</strong><span>+</span><strong>AI SEO</strong></div><span class="growth-foot">BUSINESS DEVELOPMENT / OPPORTUNITY</span></div><div class="lead-caption"><span>04 / NEW BUSINESS</span><h3>Opened new opportunities.</h3><p>Helped develop new AI SEO and AI advertising service opportunities for the agency.</p></div></article>
-</div></section><div class="rule"></div>
+
+<section class="section" id="systems"><div class="sectop"><span>05 / AI WORKFLOWS</span><span>BUILDING SYSTEMS THAT DO THE WORK</span></div><div class="systems-intro"><div><h2 class="display">Meet the <span>agents.</span></h2></div><p>Four purpose-built workflows. From research and brand intelligence to production-ready content.</p></div><div class="agent-grid agent-simple"><article class="agent-card agent-lite"><span class="agent-no">01</span><h3>Ads Intel</h3><p>Competitor ads in. Creative signals and hooks out.</p><small>Demo pending</small></article><article class="agent-card agent-lite"><span class="agent-no">02</span><h3>Blog Agent</h3><p>Topic briefs into structured, SEO-ready drafts.</p><small>Demo pending</small></article><article class="agent-card agent-lite"><span class="agent-no">03</span><h3>Brand Agent</h3><p>Guidelines and context into on-brand creative.</p><small>In development</small></article><article class="agent-card agent-lite"><span class="agent-no">04</span><h3>Content Automation</h3><p>Source assets transformed into repeatable deliverables.</p><small>Demo pending</small></article></div></section><div class="rule"></div>
+
 <footer class="section" id="contact"><div class="footer"><div><div class="edition">CONTACT</div><h2>Let’s <em>work together.</em></h2><p>Available for AI creative roles and selected brand projects.</p></div><div class="footerlinks"><a href="mailto:muditchopra200@gmail.com">GET IN TOUCH ↗</a></div></div><div class="foot-end"><span>MUDIT CHOPRA / PORTFOLIO</span><span>2026 · BENGALURU</span></div></footer></section>
 <section class="project-shell" id="projectPage"><div class="metarow"><span>(Selected Work)</span><span>(Case Study)</span><span>(2026 Edition)</span></div><div class="rule" style="margin-top:18px"></div><div class="top-back"><button id="backButton">← Back to the front page</button></div>
 <div class="project-mast" id="projectTitle">The FirstClub <em>Flex</em></div><div class="rule"></div><div class="underhead"><span id="projectMeta">INDEPENDENT SPEC AD / AI FILM</span><span>CONCEPT / METHOD / FRAMES</span></div><div class="rule"></div>
 <div class="project-layout"><div class="sticky-video"><div class="project-video has-video"><video id="projectVideo" controls playsinline preload="metadata" poster="assets/video/firstclub-poster.jpg"><source id="projectVideoSrc" src="assets/video/firstclub.mp4" type="video/mp4">Your browser does not support the video tag.</video></div><p class="project-notice">Press play to watch the full film with sound.</p></div>
-<div><div class="story-section"><div class="story-number">01 / THE IDEA</div><h2 id="conceptHeading">An office rivalry with a twist.</h2><p id="conceptBody">A jealous employee tries to outshine a colleague, only for everyday grocery shopping to become the unexpected status symbol.</p></div><div class="story-section"><div class="story-number">02 / CREATIVE STRATEGY</div><h2 id="strategyHeading">Make it relatable.</h2><p id="strategyBody">A story designed around Bengaluru working professionals, social comparison and recognizable office dynamics.</p></div><div class="story-section"><div class="story-number">03 / STORY & CAMPAIGN THINKING</div><h2 id="storyHeading">The setup, the reveal.</h2><p id="storyBody">Set up the rivalry. Make the audience expect a status contest. Reveal the product as the real flex. Expandable campaign development can be added once approved assets exist.</p></div><div class="story-section"><div class="story-number">04 / THE METHOD</div><h2>Concept to final cut.</h2><div class="steps"><div class="step">01<br>IDEATION</div><div class="step">02<br>STORYBOARD</div><div class="step">03<br>AI FRAMES</div><div class="step">04<br>REALISM</div><div class="step">05<br>VIDEO GEN</div><div class="step">06<br>FINAL EDIT</div></div><p style="margin-top:13px" id="methodBody">ChatGPT-assisted creative development and frames. Realism refinements. Video generation in Higgsfield using Kling 3 and Seedance 2.5, followed by editing and a light grade.</p></div><div class="story-section"><div class="story-number">05 / SELECTED FRAMES</div><h2>From stills to scenes.</h2><div class="filmstrip"><img id="frame1" class="frame" alt="Selected frame from the film" loading="lazy"><img id="frame2" class="frame" alt="Selected frame from the film" loading="lazy"><img id="frame3" class="frame" alt="Selected frame from the film" loading="lazy"></div><p class="figcap">Selected frames from the final film.</p></div><div class="story-section"><div class="story-number">06 / PRODUCTION STACK</div><p>ChatGPT / Higgsfield / Kling 3 / Seedance 2.5</p><p class="project-notice">Independent portfolio spec ad. Not commissioned or endorsed by the depicted brand.</p></div></div></div>
+<div><div class="story-section"><div class="story-number">01 / THE IDEA</div><h2 id="conceptHeading">An office rivalry with a twist.</h2><p id="conceptBody">A jealous employee tries to outshine a colleague, only for everyday grocery shopping to become the unexpected status symbol.</p></div><div class="story-section"><div class="story-number">02 / CREATIVE STRATEGY</div><h2 id="strategyHeading">Make it relatable.</h2><p id="strategyBody">A story designed around Bengaluru working professionals, social comparison and recognizable office dynamics.</p></div><div class="story-section"><div class="story-number">03 / STORY & CAMPAIGN THINKING</div><h2 id="storyHeading">The setup, the reveal.</h2><p id="storyBody">Set up the rivalry. Make the audience expect a status contest. Reveal the product as the real flex. Expandable campaign development can be added once approved assets exist.</p></div><div class="story-section"><div class="story-number">04 / THE METHOD</div><h2 id="methodHeading">Concept to final cut.</h2><div class="steps" id="stepsRow"><div class="step">01<br>IDEATION</div><div class="step">02<br>STORYBOARD</div><div class="step">03<br>AI FRAMES</div><div class="step">04<br>REALISM</div><div class="step">05<br>VIDEO GEN</div><div class="step">06<br>FINAL EDIT</div></div><p style="margin-top:13px" id="methodBody">ChatGPT-assisted creative development and frames. Realism refinements. Video generation in Higgsfield using Kling 3 and Seedance 2.5, followed by editing and a light grade.</p></div><div class="story-section" id="framesSection"><div class="story-number">05 / SELECTED FRAMES</div><h2>From stills to scenes.</h2><div class="filmstrip"><img id="frame1" class="frame" alt="Selected frame from the film" loading="lazy"><img id="frame2" class="frame" alt="Selected frame from the film" loading="lazy"><img id="frame3" class="frame" alt="Selected frame from the film" loading="lazy"></div><p class="figcap">Selected frames from the final film.</p></div><div class="story-section" id="stackSection"><div class="story-number">06 / PRODUCTION STACK</div><p id="stackBody">ChatGPT / Higgsfield / Kling 3 / Seedance 2.5</p><p class="project-notice" id="stackNotice">Independent portfolio spec ad. Not commissioned or endorsed by the depicted brand.</p></div></div></div>
 <div class="pager"><a href="#/">← All work</a><a id="nextStory" href="#/work/sleepy-owl">Next story →</a></div>
 </section>
+<section class="project-shell" id="filmsPage"><div class="metarow"><span>(All Films)</span><span>(Brand + Spec)</span><span>(2026 Edition)</span></div><div class="rule" style="margin-top:18px"></div><div class="top-back"><a class="films-back" href="#/">← Back to the front page</a></div><div class="project-mast">All the <em>films.</em></div><div class="rule"></div><div class="underhead"><span>FIVE FILMS / AI VIDEO</span><span>TAP ANY FILM TO PLAY WITH SOUND</span></div><div class="rule"></div><div class="films-grid"><article class="film-card"><div class="film-frame" data-vid="assets/video/notyetbyus.mp4"><img src="assets/video/notyetbyus-poster.jpg" alt="Notyetbyus" loading="lazy" decoding="async"><button class="film-play" type="button" aria-label="Play Notyetbyus"><i></i></button></div><div class="film-info"><span class="film-no">01 / BRAND FILM</span><h3>Notyetbyus</h3><p>AI ad film · agency project</p><a href="#/work/notyetbyus">How it was made →</a></div></article><article class="film-card"><div class="film-frame" data-vid="assets/video/itc-aashirvaad.mp4"><img src="assets/video/itc-aashirvaad-poster.jpg" alt="ITC Aashirvaad" loading="lazy" decoding="async"><button class="film-play" type="button" aria-label="Play ITC Aashirvaad"><i></i></button></div><div class="film-info"><span class="film-no">02 / BRAND FILM</span><h3>ITC Aashirvaad</h3><p>AI product film · agency project</p><a href="#/work/itc-aashirvaad">How it was made →</a></div></article><article class="film-card"><div class="film-frame" data-vid="assets/video/amazon-smart-commerce.mp4"><img src="assets/video/amazon-smart-commerce-poster.jpg" alt="Amazon Smart Commerce" loading="lazy" decoding="async"><button class="film-play" type="button" aria-label="Play Amazon Smart Commerce"><i></i></button></div><div class="film-info"><span class="film-no">03 / BRAND FILM</span><h3>Amazon Smart Commerce</h3><p>AI video · agency project</p><a href="#/work/amazon-smart-commerce">How it was made →</a></div></article><article class="film-card"><div class="film-frame" data-vid="assets/video/firstclub.mp4"><img src="assets/video/firstclub-poster.jpg" alt="The FirstClub Flex" loading="lazy" decoding="async"><button class="film-play" type="button" aria-label="Play The FirstClub Flex"><i></i></button></div><div class="film-info"><span class="film-no">04 / SPEC FILM</span><h3>The FirstClub Flex</h3><p>Independent spec ad</p><a href="#/work/firstclub">How it was made →</a></div></article><article class="film-card"><div class="film-frame" data-vid="assets/video/sleepy-owl.mp4"><img src="assets/video/sleepy-owl-poster.jpg" alt="Coffee That Saves Your Day" loading="lazy" decoding="async"><button class="film-play" type="button" aria-label="Play Coffee That Saves Your Day"><i></i></button></div><div class="film-info"><span class="film-no">05 / SPEC FILM</span><h3>Coffee That Saves Your Day</h3><p>Independent spec ad</p><a href="#/work/sleepy-owl">How it was made →</a></div></article></div><div class="pager"><a href="#/">← Home</a><a href="#contact" id="filmsContact">Let’s talk →</a></div></section>
 </main><script>
 (function(){
 const home=document.getElementById('homePage'),detail=document.getElementById('projectPage');const projectData={
-'firstclub':{title:'The FirstClub <em>Flex</em>',videoTitle:'The FirstClub<br>Flex',idea:'An office rivalry with a twist.',concept:'A jealous employee tries to outshine a colleague, only for everyday grocery shopping to become the unexpected status symbol.',strategyTitle:'Make it relatable.',strategy:'A story designed around Bengaluru working professionals, social comparison and recognizable office dynamics.',storyTitle:'The setup, the reveal.',story:'Set up the rivalry. Make the audience expect a status contest. Reveal FirstClub as the real flex. Campaign extensions can be added when available.',method:'ChatGPT-assisted creative development and storyboards. Frame generation and realism refinement. Higgsfield video production with Kling 3 and Seedance 2.5, followed by editing and a light colour grade.',meta:'INDEPENDENT SPEC AD / AI FILM',video:'assets/video/firstclub.mp4',poster:'assets/video/firstclub-poster.jpg',frames:['assets/video/firstclub-frame1.jpg','assets/video/firstclub-frame2.jpg','assets/video/firstclub-frame3.jpg'],next:'sleepy-owl'},
-'sleepy-owl':{title:'Coffee That <em>Saves Your Day</em>',videoTitle:'Without<br>Coffee',idea:'What happens without coffee?',concept:'A humorous exaggeration of workers falling asleep at the worst possible moments, making avoidable mistakes while on the job.',strategyTitle:'Turn a universal problem into comedy.',strategy:'Aimed at working professionals. Uses exaggeration to make the consequence of sleepiness immediately understandable and funny.',storyTitle:'A sequence of unfortunate moments.',story:'An escalating series of workplace mistakes lands the central idea. Coffee becomes the simple, memorable resolution.',method:'ChatGPT-assisted concept development and frame storyboards, realism refinement, then AI video production in Higgsfield using Kling 3 and Seedance 2.5.',meta:'INDEPENDENT SPEC AD / AI FILM',video:'assets/video/sleepy-owl.mp4',poster:'assets/video/sleepy-owl-poster.jpg',frames:['assets/video/sleepy-owl-frame1.jpg','assets/video/sleepy-owl-frame2.jpg','assets/video/sleepy-owl-frame3.jpg'],next:'firstclub'}
+'firstclub':{title:'The FirstClub <em>Flex</em>',videoTitle:'The FirstClub<br>Flex',idea:'An office rivalry with a twist.',concept:'A jealous employee tries to outshine a colleague, only for everyday grocery shopping to become the unexpected status symbol.',strategyTitle:'Make it relatable.',strategy:'A story designed around Bengaluru working professionals, social comparison and recognizable office dynamics.',storyTitle:'The setup, the reveal.',story:'Set up the rivalry. Make the audience expect a status contest. Reveal FirstClub as the real flex. Campaign extensions can be added when available.',method:'ChatGPT-assisted creative development and storyboards. Frame generation and realism refinement. Higgsfield video production with Kling 3 and Seedance 2.5, followed by editing and a light colour grade.',meta:'INDEPENDENT SPEC AD / AI FILM',video:'assets/video/firstclub.mp4',poster:'assets/video/firstclub-poster.jpg',frames:['assets/video/firstclub-frame1.jpg','assets/video/firstclub-frame2.jpg','assets/video/firstclub-frame3.jpg'],methodTitle:'Concept to final cut.',steps:['IDEATION','STORYBOARD','AI FRAMES','REALISM','VIDEO GEN','FINAL EDIT'],stack:'ChatGPT / Higgsfield / Kling 3 / Seedance 2.5',notice:'Independent portfolio spec ad. Not commissioned or endorsed by the depicted brand.'},
+'notyetbyus':{title:"Notyetbyus <em>Ad Film</em>",idea:"Getting ready is the story.",concept:"A short vertical film set in the moment before a celebration: two friends helping each other get dressed in festive wear, warm light, mirrors and jewellery all around.",strategyTitle:"Sell the feeling, not the product.",strategy:"Festive dressing is as much about the people around you as the outfit. The film leads with that shared, intimate moment so the clothes feel like part of the occasion.",storyTitle:"One scene, one emotion.",story:"A single, simple scene keeps the film easy to follow on a fast-scrolling feed. Warm tones and close framing carry the mood.",methodTitle:"How it was made.",method:"AI-generated ad film produced as part of agency work for Notyetbyus, built for vertical 9:16 delivery.",steps:[],meta:"AI AD FILM / AGENCY PROJECT",video:'assets/video/notyetbyus.mp4',poster:'assets/video/notyetbyus-poster.jpg',frames:null,stack:null,notice:''},
+'itc-aashirvaad':{title:"ITC Aashirvaad <em>Product Film</em>",idea:"Goodness you can see and feel.",concept:"A close, tactile film of wheat being poured onto a stone chakki. The line on screen, “Goodness that you can see and feel”, carries the idea.",strategyTitle:"Make purity visible.",strategy:"Atta is a trust product. The film shows the grain and the stone mill up close so the quality is something you can see, not just read on a pack.",storyTitle:"Texture first.",story:"Macro framing, slow falling grain and earthy tones build a sensory moment, with minimal text so the visual does the talking.",methodTitle:"How it was made.",method:"AI-generated product film produced as part of agency work, built for vertical 9:16 delivery.",steps:[],meta:"AI PRODUCT FILM / AGENCY PROJECT",video:'assets/video/itc-aashirvaad.mp4',poster:'assets/video/itc-aashirvaad-poster.jpg',frames:null,stack:null,notice:''},
+'amazon-smart-commerce':{title:"Amazon Smart Commerce <em>Video</em>",idea:"Imagine this.",concept:"A presenter-led explainer that opens with “Imagine this:” and speaks straight to camera, built to make a smart-commerce idea easy to grasp quickly.",strategyTitle:"Hook in the first second.",strategy:"A direct address and a bold on-screen hook stop the scroll, then the explanation follows in plain language.",storyTitle:"Talk, don’t pitch.",story:"A natural, conversational delivery with large captions keeps the film clear with the sound off as well as on.",methodTitle:"How it was made.",method:"AI video produced as part of agency work, built for vertical 9:16 delivery.",steps:[],meta:"AI VIDEO / AGENCY PROJECT",video:'assets/video/amazon-smart-commerce.mp4',poster:'assets/video/amazon-smart-commerce-poster.jpg',frames:null,stack:null,notice:''},
+'sleepy-owl':{title:'Coffee That <em>Saves Your Day</em>',videoTitle:'Without<br>Coffee',idea:'What happens without coffee?',concept:'A humorous exaggeration of workers falling asleep at the worst possible moments, making avoidable mistakes while on the job.',strategyTitle:'Turn a universal problem into comedy.',strategy:'Aimed at working professionals. Uses exaggeration to make the consequence of sleepiness immediately understandable and funny.',storyTitle:'A sequence of unfortunate moments.',story:'An escalating series of workplace mistakes lands the central idea. Coffee becomes the simple, memorable resolution.',method:'ChatGPT-assisted concept development and frame storyboards, realism refinement, then AI video production in Higgsfield using Kling 3 and Seedance 2.5.',meta:'INDEPENDENT SPEC AD / AI FILM',video:'assets/video/sleepy-owl.mp4',poster:'assets/video/sleepy-owl-poster.jpg',frames:['assets/video/sleepy-owl-frame1.jpg','assets/video/sleepy-owl-frame2.jpg','assets/video/sleepy-owl-frame3.jpg'],methodTitle:'Concept to final cut.',steps:['IDEATION','STORYBOARD','AI FRAMES','REALISM','VIDEO GEN','FINAL EDIT'],stack:'ChatGPT / Higgsfield / Kling 3 / Seedance 2.5',notice:'Independent portfolio spec ad. Not commissioned or endorsed by the depicted brand.'}
 };
-function renderRoute(){const match=location.hash.match(/^#\/work\/(firstclub|sleepy-owl)$/);if(match){const d=projectData[match[1]];home.classList.remove('active');detail.classList.add('active');document.getElementById('projectTitle').innerHTML=d.title;document.getElementById('projectMeta').textContent=d.meta;var pv=document.getElementById('projectVideo');pv.poster=d.poster;document.getElementById('projectVideoSrc').src=d.video;pv.load();for(var fi=0;fi<3;fi++){document.getElementById('frame'+(fi+1)).src=d.frames[fi];}document.getElementById('conceptHeading').textContent=d.idea;document.getElementById('conceptBody').textContent=d.concept;document.getElementById('strategyHeading').textContent=d.strategyTitle;document.getElementById('strategyBody').textContent=d.strategy;document.getElementById('storyHeading').textContent=d.storyTitle;document.getElementById('storyBody').textContent=d.story;document.getElementById('methodBody').textContent=d.method;const next=document.getElementById('nextStory');next.href='#/work/'+d.next;next.textContent=d.next==='sleepy-owl'?'Next: Sleepy Owl →':'Next: FirstClub →';window.scrollTo(0,0);}else{detail.classList.remove('active');home.classList.add('active');const section=location.hash&&location.hash.startsWith('#')&&!location.hash.startsWith('#/')?document.getElementById(location.hash.substring(1)):null;if(section){setTimeout(()=>section.scrollIntoView(),30)}else window.scrollTo(0,0);}}
+var filmsEl=document.getElementById('filmsPage');function renderRoute(){if(location.hash==='#/films'){home.classList.remove('active');detail.classList.remove('active');filmsEl.classList.add('active');window.scrollTo(0,0);return}filmsEl.classList.remove('active');Array.prototype.forEach.call(filmsEl.querySelectorAll('video'),function(v){v.pause()});const match=location.hash.match(/^#\/work\/(notyetbyus|itc-aashirvaad|amazon-smart-commerce|firstclub|sleepy-owl)$/);if(match){const d=projectData[match[1]];home.classList.remove('active');detail.classList.add('active');document.getElementById('projectTitle').innerHTML=d.title;document.getElementById('projectMeta').textContent=d.meta;var pv=document.getElementById('projectVideo');pv.poster=d.poster;document.getElementById('projectVideoSrc').src=d.video;pv.load();var ORD=["notyetbyus","itc-aashirvaad","amazon-smart-commerce","firstclub","sleepy-owl"],NM={"notyetbyus":"Notyetbyus","itc-aashirvaad":"ITC Aashirvaad","amazon-smart-commerce":"Amazon Smart Commerce","firstclub":"FirstClub","sleepy-owl":"Sleepy Owl"};var fr=document.getElementById('framesSection');if(d.frames){fr.style.display='';for(var fi=0;fi<3;fi++){document.getElementById('frame'+(fi+1)).src=d.frames[fi];}}else{fr.style.display='none'}document.getElementById('methodHeading').textContent=d.methodTitle;var st=document.getElementById('stepsRow');st.style.display=d.steps&&d.steps.length?'':'none';st.innerHTML=(d.steps||[]).map(function(s,i){return '<div class="step">0'+(i+1)+'<br>'+s+'</div>'}).join('');var sk=document.getElementById('stackSection');sk.style.display=d.stack?'':'none';document.getElementById('stackBody').textContent=d.stack||'';document.getElementById('stackNotice').textContent=d.notice||'';document.getElementById('conceptHeading').textContent=d.idea;document.getElementById('conceptBody').textContent=d.concept;document.getElementById('strategyHeading').textContent=d.strategyTitle;document.getElementById('strategyBody').textContent=d.strategy;document.getElementById('storyHeading').textContent=d.storyTitle;document.getElementById('storyBody').textContent=d.story;document.getElementById('methodBody').textContent=d.method;const next=document.getElementById('nextStory');var nx=ORD[(ORD.indexOf(match[1])+1)%ORD.length];next.href='#/work/'+nx;next.textContent='Next: '+NM[nx]+' →';document.title=NM[match[1]]+' — Mudit Chopra';window.scrollTo(0,0);}else{detail.classList.remove('active');home.classList.add('active');const section=location.hash&&location.hash.startsWith('#')&&!location.hash.startsWith('#/')?document.getElementById(location.hash.substring(1)):null;if(section){setTimeout(()=>section.scrollIntoView(),30)}else window.scrollTo(0,0);}}
 addEventListener('hashchange',renderRoute);renderRoute();document.getElementById('backButton').addEventListener('click',()=>{location.hash='#/'});
-const rail=document.getElementById('filmRail');const getStep=()=>rail.querySelector('.rail-card').getBoundingClientRect().width+14;document.getElementById('nextFilm').addEventListener('click',()=>rail.scrollBy({left:getStep(),behavior:'smooth'}));document.getElementById('prevFilm').addEventListener('click',()=>rail.scrollBy({left:-getStep(),behavior:'smooth'}));let drag=false,startX=0,startScroll=0;rail.addEventListener('pointerdown',e=>{if(e.target.closest('video,button,a'))return;if(e.pointerType==='mouse'&&e.button!==0)return;drag=true;startX=e.clientX;startScroll=rail.scrollLeft;rail.classList.add('dragging');});rail.addEventListener('pointermove',e=>{if(!drag)return;rail.scrollLeft=startScroll-(e.clientX-startX);});['pointerup','pointercancel','pointerleave'].forEach(t=>rail.addEventListener(t,()=>{drag=false;rail.classList.remove('dragging')}));rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();rail.scrollBy({left:getStep(),behavior:'smooth'})}if(e.key==='ArrowLeft'){e.preventDefault();rail.scrollBy({left:-getStep(),behavior:'smooth'})}});
+
 })();
-</script><script>(function(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const layers=[...document.querySelectorAll('.star-layer')];let scheduled=false;function move(){const y=window.scrollY;layers.forEach((el,i)=>{el.style.transform='translate3d(0,'+(-y*[.12,.28,.52][i])+'px,0)'});scheduled=false}window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(move)}},{passive:true});move()})();</script><script>(function(){const stars=[...document.querySelectorAll('.cosmos-stars')];if(!stars.length||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;let target=0,current=0,frame=0,active=true;function draw(){current+=(target-current)*.095;const t=performance.now()*.003;stars.forEach((layer,i)=>{const speed=[.10,.24,.45][i],drift=[.8,1.6,2.7][i];layer.style.transform='translate3d(0,'+(-current*speed+t*drift)+'px,0)'});if(active)frame=requestAnimationFrame(draw)}window.addEventListener('scroll',()=>{target=window.scrollY},{passive:true});document.addEventListener('visibilitychange',()=>{active=!document.hidden;if(active){cancelAnimationFrame(frame);frame=requestAnimationFrame(draw)}});draw()})();</script></body></html>
+</script><script>(function(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const layers=[...document.querySelectorAll('.star-layer')];let scheduled=false;function move(){const y=window.scrollY;layers.forEach((el,i)=>{el.style.transform='translate3d(0,'+(-y*[.12,.28,.52][i])+'px,0)'});scheduled=false}window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(move)}},{passive:true});move()})();</script><script>(function(){const stars=[...document.querySelectorAll('.cosmos-stars')];if(!stars.length||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;let target=0,current=0,frame=0,active=true;function draw(){current+=(target-current)*.095;const t=performance.now()*.003;stars.forEach((layer,i)=>{const speed=[.10,.24,.45][i],drift=[.8,1.6,2.7][i];layer.style.transform='translate3d(0,'+(-current*speed+t*drift)+'px,0)'});if(active)frame=requestAnimationFrame(draw)}window.addEventListener('scroll',()=>{target=window.scrollY},{passive:true});document.addEventListener('visibilitychange',()=>{active=!document.hidden;if(active){cancelAnimationFrame(frame);frame=requestAnimationFrame(draw)}});draw()})();</script><script>(function(){
+var root=document.documentElement;
+var animated=root.classList.contains('hero-js');
+var home=document.getElementById('homePage');
+var h1=document.querySelector('.hero-about-copy h1');
+var stageEl=h1&&h1.querySelector('.mast-stage');
+if(!animated||!h1||!stageEl)return;
+var LINES=['Mudit’s','Portfolio'],NI=7,LINE0=LINES[0].length;
+var PAL={k:'#ffffff',b:'#8a8e9b',w:'#1b1d24',p:'#b5b7c1'};
+var ICONS=[
+['........k','......kkb','....kkwkb','..kkwwkb.','kkwwwkbb.','..kkkbb..','....kb...','....k....','.........'],
+['kpkpkpkpk','kkkkkkkkk','kwwwwwwwk','kwkkkkkwk','kwwwwwwwk','kwkkkkkwk','kwwwwwwwk','kwkkkkwwk','kkkkkkkkk'],
+['...kkk...','kkkkkkkkk','kwbbbbbwk','kbkkkkkbk','kbkwwwkbk','kbkwwwkbk','kbkkkkkbk','kwbbbbbwk','kkkkkkkkk'],
+['..kkkkk..','.kwwwwwk.','kwwkwwwwk','kwwkkwwwk','kwwkkkwwk','kwwkkwwwk','kwwkwwwwk','.kwwwwwk.','..kkkkk..'],
+['.......kk','......kpk','.....kpk.','....kpk..','...kbk...','..kbk....','.kwk.....','kkk......','.........'],
+['..kkkkk..','.kwwwwwk.','kwwwpwwwk','kwwpppwwk','.kwwpwwk.','..kwwwk..','..kkkkk..','...kbk...','...kkk...'],
+['....p....','.p..k..p.','...kpk...','..kpppk..','pkpppppkp','..kpppk..','...kpk...','.p..k..p.','....p....']
+];
+function svg(rows){var s='<svg viewBox="0 0 9 9" shape-rendering="crispEdges" width="100%" height="100%" aria-hidden="true">';for(var y=0;y<9;y++){for(var x=0;x<9;x++){var c=rows[y].charAt(x);if(c!=='.')s+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+PAL[c]+'"/>'}}return s+'</svg>'}
+
+var chars=[];LINES.forEach(function(l,li){l.split('').forEach(function(c){chars.push({c:c,line:li})})});
+var TOT=chars.length;
+var letters=[],icons=[],iconIn=[],lw=[],lx=[],fs=100,ic0=62,gap0=12;
+function build(){
+  stageEl.innerHTML='';letters=[];icons=[];iconIn=[];
+  chars.forEach(function(o){var s=document.createElement('span');s.className='ml'+(o.line?' l2':'');s.textContent=o.c;stageEl.appendChild(s);letters.push(s)});
+  for(var j=0;j<NI;j++){var d=document.createElement('div');d.className='mi';d.innerHTML='<div class="mi-in">'+svg(ICONS[j])+'</div>';stageEl.appendChild(d);icons.push(d);iconIn.push(d.firstChild)}
+}
+function measure(){
+  fs=parseFloat(getComputedStyle(h1).fontSize);ic0=fs*.62;gap0=ic0*.2;
+  lw=letters.map(function(l){return l.offsetWidth});
+  var a=[0,0];lx=[];
+  for(var i=0;i<TOT;i++){var ln=chars[i].line;lx.push(a[ln]);a[ln]+=lw[i]}
+  var lh=parseFloat(getComputedStyle(h1).lineHeight)||fs*.9;
+  for(i=0;i<TOT;i++)letters[i].style.transform='translate('+lx[i]+'px,'+(chars[i].line*lh)+'px)';
+  measure.lh=lh;
+}
+var S=0,N=NI,goneP={};
+function layout(s,n){
+  var avail=stageEl.clientWidth,lh=measure.lh||fs*.9,i;
+  var row=s>LINE0?1:0,lettersW=0;
+  for(i=0;i<s;i++)if(chars[i].line===row)lettersW+=lw[i];
+  var join=(lettersW>0&&n>0)?gap0*1.6:0;
+  var need=n>0?n*ic0+(n-1)*gap0:0,f=1;
+  if(n>0){f=Math.max(.45,Math.min(1,(avail-lettersW-join)/need))}
+  var ic=ic0*f,gap=gap0*f,slot0=lettersW+join,pos=[];
+  for(var j=0;j<NI;j++){var k=j-(NI-n);pos.push(k>=0?{x:slot0+k*(ic+gap),y:row*lh+(lh-ic)/2,s:ic}:null)}
+  return {pos:pos,ic:ic,row:row,lh:lh};
+}
+function applyIcon(j,p){var el=icons[j];el.style.width=p.s+'px';el.style.height=p.s+'px';el.style.transform='translate('+p.x+'px,'+p.y+'px)'}
+function place(s,n){
+  var L=layout(s,n);
+  for(var j=0;j<NI;j++){if(L.pos[j])applyIcon(j,L.pos[j]);else if(goneP[j])applyIcon(j,goneP[j])}
+  return L;
+}
+function noTrans(on){icons.forEach(function(e){e.style.transition=on?'none':''})}
+
+/* plane */
+var fly=document.createElement('div');fly.className='mfly';fly.innerHTML=svg(ICONS[0]);document.body.appendChild(fly);
+function flightPoints(L){
+  var W=innerWidth,H=innerHeight,Ly=L.y;
+  function cl(y){return Math.max(H*.06,Math.min(H*.94,y))}
+  var span=Math.max(.2*W,Math.min(.45*W,L.x+.1*W));
+  return [
+   [.33,-.04*W,cl(Ly+.40*H)],[.45,.04*W,cl(Ly+.36*H)],[.60,.14*W,cl(Ly+.26*H)],[.70,.25*W,cl(Ly+.13*H)],
+   [.80,.35*W,cl(Ly+.03*H)],[.87,.37*W,cl(Ly+.01*H)],[.93,.31*W,cl(Ly+.06*H)],[1.00,.26*W,cl(Ly+.04*H)],
+   [1.07,.30*W,cl(Ly+.10*H)],[1.15,L.x+.08*W,cl(Ly+.04*H)],[1.27,L.x,Ly]
+  ];
+}
+function hermite(P,t){
+  var n=P.length,i=0;while(i<n-2&&t>=P[i+1][0])i++;
+  var a=P[i],b=P[i+1],dt=b[0]-a[0],u=Math.min(1,Math.max(0,(t-a[0])/dt));
+  function tan(k,c){var p0=P[Math.max(0,k-1)],p1=P[Math.min(n-1,k+1)];return(p1[c]-p0[c])/(p1[0]-p0[0])}
+  var out=[];
+  for(var c=1;c<=2;c++){var m0=tan(i,c),m1=tan(i+1,c),u2=u*u,u3=u2*u;
+    out.push((2*u3-3*u2+1)*a[c]+(u3-2*u2+u)*dt*m0+(-2*u3+3*u2)*b[c]+(u3-u2)*dt*m1)}
+  return out;
+}
+
+/* sequencing */
+var done=false,timers=[],raf=0,t0=0;
+function later(ms,fn){timers.push(setTimeout(fn,ms))}
+function q(sel){return [].slice.call(document.querySelectorAll(sel))}
+function revealAt(sel,ms){q(sel).forEach(function(e,i){later(ms+i*30,function(){e.classList.add('in')})})}
+function revealAll(){q('.nav-signature,.nav-links a,.hero-kicker,.hero-role,.hero-biography,.hero-actions,.hero-portrait,.hero-coordinate').forEach(function(e){e.classList.add('in')})}
+function settle(){
+  done=true;timers.forEach(clearTimeout);timers=[];cancelAnimationFrame(raf);fly.style.opacity=0;
+  noTrans(true);
+  letters.forEach(function(l){l.classList.add('on')});
+  iconIn.forEach(function(e){e.className='mi-in'});
+  S=TOT;N=0;goneP={};
+  revealAll();
+  void stageEl.offsetWidth;noTrans(false);
+}
+function startAnim(){
+  t0=performance.now();
+  revealAt('.nav-signature',150);revealAt('.nav-links a',200);revealAt('.hero-kicker',330);revealAt('.hero-portrait',900);
+  revealAt('.hero-role',2900);revealAt('.hero-biography',3000);revealAt('.hero-actions',3150);revealAt('.hero-coordinate',3400);
+  var L0=place(0,NI),r=stageEl.getBoundingClientRect();
+  var land={x:r.left+L0.pos[0].x+L0.ic/2,y:r.top+L0.pos[0].y+L0.ic/2};
+  var P=flightPoints(land),fsz=L0.ic*1.4;
+  fly.style.width=fsz+'px';fly.style.height=fsz+'px';
+  later(1270,function(){iconIn[0].classList.add('on')});
+  for(var j=1;j<NI;j++)(function(j){later((1.27+.03+(j-1)*.07)*1000,function(){iconIn[j].classList.add('on')})})(j);
+  for(var k=0;k<TOT;k++)(function(k){later(1900+k*190,function(){
+    var s=k+1,nNew=Math.ceil(NI*(TOT-s)/TOT);
+    if(nNew<N){var gi=NI-N,prev=layout(S,N);goneP[gi]=prev.pos[gi];iconIn[gi].className='mi-in gone';N=nNew}
+    S=s;letters[k].classList.add('on');
+    place(S,N);
+  })})(k);
+  later(1900+TOT*190+700,function(){done=true});
+  function frame(now){
+    var t=(now-t0)/1000;
+    if(t>=.33&&t<1.4){
+      var tt=Math.min(t,1.27),p=hermite(P,tt),qn=hermite(P,Math.min(1.27,tt+.012)),q0=hermite(P,Math.max(.33,tt-.012));
+      var ang=Math.atan2(qn[1]-q0[1],qn[0]-q0[0])*180/Math.PI+45,sc=1,rot=ang;
+      if(t>1.15){var u=Math.min(1,(t-1.15)/.12);sc=1+(1/1.4-1)*u;rot=ang*(1-u)}
+      fly.style.opacity=t<1.27?1:Math.max(0,1-(t-1.27)/.06);
+      fly.style.transform='translate('+(p[0]-fsz/2).toFixed(1)+'px,'+(p[1]-fsz/2).toFixed(1)+'px) rotate('+rot.toFixed(1)+'deg) scale('+sc.toFixed(3)+')';
+    }else if(t>=1.4)fly.style.opacity=0;
+    if(t<1.45)raf=requestAnimationFrame(frame);
+  }
+  raf=requestAnimationFrame(frame);
+  later(9000,function(){if(!done)settle()});
+}
+function homeVisible(){return home&&home.offsetParent!==null}
+build();
+if(!homeVisible()){settle()}else{measure();startAnim()}
+addEventListener('hashchange',function(){if(homeVisible()){measure();if(!done)settle()}});
+var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(homeVisible()){measure();settle()}},120)});
+})();
+
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var home=document.getElementById('homePage'),fan=document.getElementById('heroFan');
+if(!fan)return;
+var label=document.querySelector('.hero-fanlabel');
+var CARDS=[
+{img:'assets/video/amazon-smart-commerce-poster.jpg',vid:'assets/video/amazon-smart-commerce.mp4',href:'#/work/amazon-smart-commerce',tag:'Brand film',name:'Amazon Smart Commerce'},
+{img:'assets/video/sleepy-owl-poster.jpg',vid:'assets/video/sleepy-owl.mp4',href:'#/work/sleepy-owl',tag:'Spec film',name:'Without Coffee'},
+{img:'assets/video/firstclub-poster.jpg',vid:'assets/video/firstclub.mp4',href:'#/work/firstclub',tag:'Spec film',name:'The FirstClub Flex'},
+{img:'assets/video/itc-aashirvaad-poster.jpg',vid:'assets/video/itc-aashirvaad.mp4',href:'#/work/itc-aashirvaad',tag:'Brand film',name:'ITC Aashirvaad'},
+{img:'assets/video/notyetbyus-poster.jpg',vid:'assets/video/notyetbyus.mp4',href:'#/work/notyetbyus',tag:'Brand film',name:'Notyetbyus'}
+];
+var cardEls=CARDS.map(function(c,idx){
+  var w=document.createElement('div');w.className='hwrap';var a=document.createElement('a');a.className='hcard';if(c.href)a.href=c.href;else a.tabIndex=0;a.style.setProperty('--d',(-idx*1.3)+'s');a.setAttribute('aria-label',c.tag+': '+c.name);
+  a.innerHTML='<img src="'+c.img+'" alt="" decoding="async"><video muted loop playsinline preload="none"></video><span class="hc-title">'+c.name+'</span>'+(c.href?'<i class="hc-open">OPEN ↗</i>':'');
+  w.appendChild(a);fan.appendChild(w);
+  if(!reduce){
+    var v=a.querySelector('video');
+    function start(){if(!v.getAttribute('src'))v.src=c.vid;var p=v.play();if(p&&p.catch)p.catch(function(){})}
+    function stop(){v.pause();v.classList.remove('on');try{v.currentTime=0}catch(e){}}
+    v.addEventListener('playing',function(){v.classList.add('on')});
+    a.addEventListener('mouseenter',start);a.addEventListener('mouseleave',stop);
+    a.addEventListener('focus',start);a.addEventListener('blur',stop);
+  }
+  return w;
+});
+var order=[4,2,0,1,3],riseAt=[.53,.60,.63,.70,.80];
+var G={};
+function geo(){
+  var W=fan.clientWidth,mob=innerWidth<680;
+  var cw=mob?Math.min(W*.3,135):Math.min(Math.max(W*.2,130),270),R=mob?W*1.05:W*.9,step;
+  if(!mob&&visible()){var top0=fan.getBoundingClientRect().top+pageYOffset;cw=Math.min(cw,Math.max(170,(innerHeight-top0-34)/1.25))}
+  for(;;){step=2*Math.asin(Math.min(1,1.05*cw/(2*R)));if(mob||cw<=130)break;var th=2*step,half=R*Math.sin(th)+cw/2*Math.cos(th)+cw*.625*Math.sin(th);if(2*half<=W+110)break;cw-=4}
+  var n=CARDS.length,half=(n-1)/2,thMax=half*step;
+  var ymid=14+cw*.625,cy=ymid+R;
+  var sh=Math.round(ymid+cw*.625+R*(1-Math.cos(thMax))+26);
+  G={W:W,cw:cw,sh:sh,pose:[]};
+  for(var i=0;i<n;i++){var th=(i-half)*step;G.pose.push({x:W/2+R*Math.sin(th),y:cy-R*Math.cos(th),r:th*180/Math.PI})}
+  fan.style.setProperty('--cw',cw+'px');fan.style.setProperty('--sh',sh+'px');
+}
+function setCard(i,x,y,r,o){var el=cardEls[i];el.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) rotate('+r.toFixed(2)+'deg)';el.style.opacity=o}
+function cardsFinal(){for(var i=0;i<cardEls.length;i++){var p=G.pose[i];setCard(i,p.x,p.y,p.r,1);cardEls[i].style.zIndex=''}}
+function easeOutBack(x){var c1=1.15,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)}
+function visible(){return home&&home.offsetParent!==null}
+var raf=0,finished=false;
+var deckR=[-6,3.5,0,-3,5.5],spreadAt=[1.12,1.04,1.0,1.04,1.12],SPREAD=.95;
+function deckPose(i){return{x:G.W/2+(i-2)*3,y:G.pose[2].y+(2-i)*2,r:deckR[i]}}
+function run(){
+  var t0=performance.now();
+  for(var i=0;i<cardEls.length;i++){var d=deckPose(i);setCard(i,d.x,d.y,d.r,0);cardEls[i].style.zIndex=String([0,2,4,3,1][i])}
+  if(label)setTimeout(function(){label.classList.add('in')},900);
+  function frame(now){
+    var t=(now-t0)/1000;
+    for(var ci=0;ci<cardEls.length;ci++){
+      var d=deckPose(ci),p=G.pose[ci],ts=spreadAt[ci];
+      if(t<ts){setCard(ci,d.x,d.y,d.r,Math.min(1,Math.max(0,(t-.1-ci*.04)/.35)))}
+      else{var u=Math.min(1,(t-ts)/SPREAD),e=easeOutBack(u);setCard(ci,d.x+(p.x-d.x)*e,d.y+(p.y-d.y)*e,d.r+(p.r-d.r)*e,1)}
+    }
+    if(t<2.3&&!finished)raf=requestAnimationFrame(frame);else{for(var k=0;k<cardEls.length;k++)cardEls[k].style.zIndex='';cardsFinal()}
+  }
+  raf=requestAnimationFrame(frame);
+}
+function settle(){finished=true;cancelAnimationFrame(raf);if(label)label.classList.add('in');geo();cardsFinal()}
+geo();
+if(reduce||!document.documentElement.classList.contains('hero-js')||!visible()){cardsFinal();if(label)label.classList.add('in')}
+else run();
+addEventListener('hashchange',function(){if(visible()){settle()}});
+var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(visible())settle()},120)});
+})();
+</script><script>(function(){
+var stage=document.querySelector('.bw-stage');if(!stage)return;
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var vids=[].slice.call(stage.querySelectorAll('.bw-screen video'));
+var dots=[].slice.call(stage.querySelectorAll('.bw-dot'));
+var idxEl=stage.querySelector('.bw-idx'),titleEl=stage.querySelector('.bw-title'),subEl=stage.querySelector('.bw-sub'),soundBtn=stage.querySelector('.bw-sound');
+var cur=0,visible=false,muted=true;
+function pad(n){return (n<10?'0':'')+n}
+function play(v){var p=v.play();if(p&&p.catch)p.catch(function(){})}
+function show(i,go){
+  cur=(i+vids.length)%vids.length;
+  vids.forEach(function(v,j){v.classList.toggle('on',j===cur);if(j!==cur)v.pause()});
+  dots.forEach(function(d,j){d.firstChild.style.width=j<cur?'100%':'0'});
+  var v=vids[cur];
+  idxEl.textContent=pad(cur+1)+' / '+pad(vids.length);
+  titleEl.textContent=v.getAttribute('data-title');subEl.textContent=v.getAttribute('data-sub');
+  try{v.currentTime=0}catch(e){}
+  v.muted=muted;
+  if(go)play(v);
+}
+vids.forEach(function(v,i){
+  v.addEventListener('ended',function(){if(i===cur)show(cur+1,visible&&!reduce)});
+  v.addEventListener('timeupdate',function(){if(i===cur&&v.duration){dots[i].firstChild.style.width=(v.currentTime/v.duration*100)+'%'}});
+});
+dots.forEach(function(d,i){d.addEventListener('click',function(e){e.stopPropagation();show(i,true)})});
+if(soundBtn)soundBtn.addEventListener('click',function(){muted=!muted;vids[cur].muted=muted;soundBtn.textContent=muted?'SOUND OFF':'SOUND ON'});
+var phone=stage.querySelector('.bw-phone');
+phone.addEventListener('click',function(){var v=vids[cur];if(v.paused)play(v);else v.pause()});
+show(0,false);
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){es.forEach(function(e){
+    visible=e.isIntersecting&&e.intersectionRatio>=.35;
+    var v=vids[cur];
+    if(visible&&!reduce)play(v);else v.pause();
+  })},{threshold:[0,.35,.6]}).observe(phone);
+}else if(!reduce){visible=true;play(vids[0])}
+})();
+</script><script>(function(){
+var section=document.getElementById('brand-work');if(!section)return;
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var phone=section.querySelector('.bw-phone'),head=section.querySelector('.compact-head'),top0=section.querySelector('.sectop'),meta=section.querySelector('.bw-meta');
+if(!phone)return;
+phone.style.willChange='transform';
+var ticking=false;
+function update(){
+  ticking=false;
+  var vh=innerHeight,r=phone.getBoundingClientRect();
+  if(!r.height){return}
+  /* scaling is about the centre, so the centre does not move with the zoom */
+  var cy=r.top+r.height/2;
+  var d=(cy-vh/2)/(vh*.65);
+  var t=Math.max(0,1-Math.abs(d));
+  var e=t*t*(3-2*t);
+  var base=phone.offsetHeight;
+  var smax=Math.min(2.1,(vh*.86)/base);
+  var s=1+(smax-1)*e;
+  var extra=(s-1)*base/2;
+  phone.style.transform='scale('+s.toFixed(4)+')';
+  if(meta)meta.style.transform='translateY('+extra.toFixed(1)+'px)';
+  var fo=Math.max(0,1-e*2.2).toFixed(3);
+  if(head)head.style.opacity=fo;
+  if(top0)top0.style.opacity=fo;
+}
+function req(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+addEventListener('scroll',req,{passive:true});
+addEventListener('resize',req);
+addEventListener('load',req);
+update();
+})();
+</script><script>(function(){
+var page=document.getElementById('filmsPage');if(!page)return;
+page.addEventListener('click',function(e){
+  var fr=e.target.closest&&e.target.closest('.film-frame');if(!fr)return;
+  if(fr.classList.contains('playing'))return;
+  Array.prototype.forEach.call(page.querySelectorAll('.film-frame.playing'),function(o){var ov=o.querySelector('video');if(ov)ov.pause()});
+  var v=fr.querySelector('video');
+  if(!v){v=document.createElement('video');v.src=fr.getAttribute('data-vid');v.controls=true;v.playsInline=true;v.preload='auto';v.poster=fr.querySelector('img').src;fr.appendChild(v)}
+  fr.classList.add('playing');
+  var p=v.play();if(p&&p.catch)p.catch(function(){});
+});
+page.addEventListener('play',function(e){Array.prototype.forEach.call(page.querySelectorAll('video'),function(o){if(o!==e.target)o.pause()})},true);
+})();</script><script>(function(){
+var stage=document.querySelector('.bw-stage');if(!stage)return;
+var dots=[].slice.call(stage.querySelectorAll('.bw-dot')),phone=stage.querySelector('.bw-phone'),idx=stage.querySelector('.bw-idx');
+if(!dots.length||!phone||!idx)return;
+var rail=document.createElement('div');rail.className='bw-rail';rail.setAttribute('role','group');rail.setAttribute('aria-label','Choose film');
+var btns=dots.map(function(d,i){var b=document.createElement('button');b.type='button';b.textContent=String(i+1);b.setAttribute('aria-label',d.getAttribute('aria-label')||('Film '+(i+1)));
+b.addEventListener('click',function(e){e.stopPropagation();d.click()});rail.appendChild(b);return b});
+stage.appendChild(rail);
+function size(){rail.style.top=phone.offsetTop+'px';rail.style.height=phone.offsetHeight+'px'}
+function sync(){var n=parseInt(idx.textContent,10)||1;btns.forEach(function(b,i){b.classList.toggle('on',i===n-1);b.setAttribute('aria-current',i===n-1?'true':'false')})}
+new MutationObserver(sync).observe(idx,{childList:true,characterData:true,subtree:true});
+addEventListener('resize',size);addEventListener('load',size);size();sync();
+})();</script></body></html>
